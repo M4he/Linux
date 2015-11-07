@@ -143,7 +143,8 @@ The following is a onetime procedure that sets up all the necessary connections 
     - click 'Connect' at the bottom
     - save your configuration using the button at the top
     - click on 'Activate' at the top right
-![Screenshot of the resulting Patchbay](/patchbay.png?raw=true)
+
+![Screenshot of the resulting Patchbay](./patchbay.png?raw=true)
 
 ## Finalizing
 If everything worked out correctly, you should be able to hear sound from PulseAudio applications through JACK now. If so, it's time to complete the setup following the instructions below.
