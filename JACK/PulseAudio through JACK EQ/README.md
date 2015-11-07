@@ -164,8 +164,6 @@ You may now go into the Calf JACK Host window again and manipulate the EQ to you
 If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
-- add the Calf Host to your startup applications like this:
-    - `calfjackhost --load ~/.config/jack/calf.conf &`
 
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available.
