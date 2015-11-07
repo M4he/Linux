@@ -5,7 +5,12 @@ If you succeed or fail using this guide, you can drop a feedback in the 'Issues'
 
 The following section will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter 'Setup' below.
 
-## This guide will be for you if one of the following things apply:
+## Who is this guide intended for
+This is for audiophiles and perfectionists alike.
+
+You should have at least a basic understanding of your Linux system and be familiar with the command line. Some command names or paths in this guide might differ for your Linux system, don't expect this to work by blindly copying the commands. It's up to you making appropriate adjustments where necessary.
+
+### You might find this guide handy if:
 
 - you want a professional, system-wide equalizer (and/or other audio manipulation modules) with as low impact on latency as possible
 - you want to get rid of audio crackling when changing the volume in your applications that use PulseAudio
