@@ -101,6 +101,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
     -  Tab 'Options'
         - choose the previously created 'pulse-pre-jack-start.sh' script to be executed at startup
         - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
+        ![Screenshot of the script configuration](./scripts.png?raw=true)
     - Tab 'Misc'
         - check 'Start JACK audio server on application startup'
         - check 'Enable system tray icon'
