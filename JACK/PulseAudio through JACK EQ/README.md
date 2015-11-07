@@ -150,6 +150,7 @@ The following is a onetime procedure that sets up all the necessary connections 
     - click on 'Activate' at the top right
 
 ![Screenshot of the resulting Patchbay](./patchbay.png?raw=true)
+
 (notice the thin lines between the sockets, those indicate the virtual plug connections within JACK)
 
 ## Finalizing
