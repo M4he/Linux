@@ -83,12 +83,12 @@ The following scripts are to be executed before and after JACK starts, respectiv
 ## Setting up JACK
 ### General config
 - open up QJackCtl
-- go into settings
+- Adjust at least the following settings:
     - Tab 'Settings'
-        -  under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' as 'driver'
-        -  select your primary sound card/chip for 'interface'
-        -  check 'realtime' if you enabled realtime scheduling as instructed above
-        -  use the save button at the top
+        - under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' as 'driver'
+        - select your primary sound card/chip for 'interface'
+        - check 'realtime' if you enabled realtime scheduling as instructed above
+        - use the save button at the top
     -  Tab 'Options'
         - choose the previously created 'pulse-pre-jack-start.sh' script to be executed at startup
         - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
@@ -99,6 +99,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
 - close the settings window
 
 ### Setting up the Patchbay
+The following is a onetime procedure that sets up all the necessary connections for JACK. Once saved, they will be automatically loaded by QJackCtl on each start.
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - in terminal execute `pacmd suspend true`
     - open up QJackCtl and click start, wait for JACK to be started
