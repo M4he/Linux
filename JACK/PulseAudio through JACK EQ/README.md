@@ -58,7 +58,11 @@ Create the necessary config dir: `mkdir -p ~/.config/jack`
 
 run `calfjackhost`
 
-- choose 'Add plugin' > 'EQ' > 'Equalizer 5 Band' (a 5 band EQ will be added to the window, which we will configure later)
+- choose 'Add plugin' > 'EQ' > 'Equalizer 5 Band'
+
+![Screenshot of the Calf deck](./calf.png?raw=true)
+
+(a 5 band EQ will be added to the window, which we will configure later)
 - IMPORTANT: don't close the 'Calf JACK Host' main window!
 
 ## Preparing PulseAudio
@@ -154,6 +158,7 @@ If everything worked out correctly, you should be able to hear sound from PulseA
 You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio.
 
 ![Screenshot of the EQ](./eq.png?raw=true)
+
 If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
