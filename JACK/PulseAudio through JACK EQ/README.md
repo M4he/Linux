@@ -50,11 +50,13 @@ run `calfjackhost`
 
 ### Startup scripts
 - `nano .jack/pulse-pre-jack-start.sh`
+
     ```bash
     #!/bin/bash
     pacmd suspend true
     ```
 - `nano .jack/pulse-post-jack-start.sh`
+
     ```bash
     #!/bin/bash
     pactl load-module module-jack-sink channels=2
