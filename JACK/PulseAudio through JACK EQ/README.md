@@ -27,7 +27,7 @@ To sum it up:
 - you can keep using PulseAudio for your applications
 - you will get a system-wide EQ and other audio manipulation tools for limitless tweaking of your system's sound
 - you will get rid of most audio imperfections caused by PulseAudio's latency
-- you will achieve a setup that doesn't touch your standard PulseAudio config until you start JACK and is easy to revert (simply reboot)
+- you will achieve a setup that doesn't touch your standard PulseAudio config until you start JACK
 
 
 ## Why not use JACK directly and ALSA as fallback?
