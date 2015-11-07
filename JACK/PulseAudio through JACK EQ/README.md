@@ -35,6 +35,8 @@ At least, the following packages are required:
 
     calf (aka calf-plugins), jack2 (aka jackd2), pulseaudio-module-jack
 
+Create the necessary config dir: `mkdir -p ~/.config/jack`
+
 ## Enabling realtime scheduling for your user (optional)
 - `sudo nano .jack/pulse-pre-jack-start.sh` and append the following to the end of the file
 
@@ -59,13 +61,16 @@ run `calfjackhost`
 ### Startup scripts
 The following scripts are to be executed before and after JACK starts, respectively. They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
 
-- `nano .jack/pulse-pre-jack-start.sh`
+- `nano ~/.config/jack/pulse-pre-jack-start.sh`
 
     ```
     #!/bin/bash
     pacmd suspend true
+    calfjackhost --load ~/.jack/calf.conf &
+
     ```
-- `nano .jack/pulse-post-jack-start.sh`
+    The `calfjackhost --load ~/.jack/calf.conf &` line will startup the EQ module window before JACK starts. Without this module running, you will get no sound as JACK routes everything through it.
+- `nano ~/.config/jack/pulse-post-jack-start.sh`
 
     ```
     #!/bin/bash
@@ -89,7 +94,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
         - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
     - Tab 'Misc'
         - check 'Start JACK audio server on application startup'
-        - check 'Enable system try icon'
+        - check 'Enable system tray icon'
         - check 'Start minimized to system tray'
 - close the settings window
 
@@ -139,7 +144,7 @@ If everything worked out correctly, you should be able to hear sound from PulseA
 ### Tweak the EQ and make it permanent
 You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio. If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
-- save the configuration, e.g. to `~/.config/jack/calf.conf`
+- save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
 - add the Calf Host to your startup applications like this:
     - `calfjackhost --load ~/.config/jack/calf.conf &`
 
