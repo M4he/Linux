@@ -1,5 +1,10 @@
 # Preface
+## This is a WIP
+This is guide is a rough guideline that sums up the steps I have done for my system. It has only been tested on Debian 8 (Jessie) so far, YMMV!
+If you succeed or fail using this guide, you can drop a feedback in the 'Issues' section of my GitHub repo if you want.
+
 The following section will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter 'Setup' below.
+
 ## This guide will be for you if one of the following things apply:
 
 - you want a professional, system-wide equalizer (and/or other audio manipulation modules) with as low impact on latency as possible
@@ -26,6 +31,8 @@ Sure one could use ALSA for those directly, however this would mean those applic
 
 # Setup
 ## Requirements
+At least, the following packages are required:
+
     calf (aka calf-plugins), jack2 (aka jackd2), pulseaudio-module-jack
 
 ## Enabling realtime scheduling for your user (optional)
@@ -133,3 +140,6 @@ You may now go into the Calf JACK Host window again and manipulate the EQ to you
 
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available.
+
+## Extending your config
+Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
