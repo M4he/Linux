@@ -59,7 +59,7 @@ run `calfjackhost`
 ## Preparing PulseAudio
 
 ### Startup scripts
-The following scripts are to be executed before and after JACK starts, respectively. They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
+The following scripts are to be executed before and after JACK starts, respectively (which we will configure later). They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
 
 - `nano ~/.config/jack/pulse-pre-jack-start.sh`
 
