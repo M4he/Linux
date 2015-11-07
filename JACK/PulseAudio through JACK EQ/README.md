@@ -67,9 +67,10 @@ run `calfjackhost`
 
     ```
     #!/bin/bash
-    pactl load-module module-jack-sink channels=2
+    pactl load-module module-jack-sink channels=2 connect=0
     pacmd set-default-sink jack_out
     ```
+    The `connect=0` parameter is crucial here! If omitted, PulseAudio will try to connect its plugs to the JACK output endpoint. In our setup this would circumvent the EQ and lead to doubled sound, so make sure this doesn't happen.
 - `chmod +x .jack/*.sh`
 
 ## Setting up JACK
