@@ -11,7 +11,7 @@ The following section will give a short overview of the goals and approaches of 
 ## What we will try to achieve
 
 We will place JACK in between ALSA and PulseAudio. JACK will provide a professional, low-latency interface and control of your sound card/chip through ALSA. This attempts to solve many issues that emerge from PulseAudio being bloatware in regards of audio control. Additionally JACK can route the audio signals through any modification software (e.g. EQ) before handing it to the ALSA output, without causing latency problems or disturbances in your audio.
-When successfull, your system will still run PulseAudio but let JACK handle the audio control. This is extremely user-friendly as you don't have to change anything for your audio applications.
+When successful, your system will still run PulseAudio but let JACK handle the audio control. This is extremely user-friendly as you don't have to change anything for your audio applications.
 To sum it up:
 
 - you can keep using PulseAudio for your applications
@@ -30,6 +30,7 @@ Sure one could use ALSA for those directly, however this would mean those applic
 
 ## Enabling realtime scheduling for your user (optional)
 - `sudo nano .jack/pulse-pre-jack-start.sh` and append the following to the end of the file
+
     ```
     @audio-rt       -       nice            -11
     @audio-rt       -       rtprio          99
@@ -51,13 +52,13 @@ run `calfjackhost`
 ### Startup scripts
 - `nano .jack/pulse-pre-jack-start.sh`
 
-    ```bash
+    ```
     #!/bin/bash
     pacmd suspend true
     ```
 - `nano .jack/pulse-post-jack-start.sh`
 
-    ```bash
+    ```
     #!/bin/bash
     pactl load-module module-jack-sink channels=2
     pacmd set-default-sink jack_out
@@ -69,7 +70,7 @@ run `calfjackhost`
 - open up QJackCtl
 - go into settings
     - tab 'settings'
-        -  under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' for 'driver
+        -  under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' as 'driver'
         -  select your primary sound card/chip for 'interface'
         -  check 'realtime' if you enabled realtime scheduling as instructed above
         -  use the save button at the top
