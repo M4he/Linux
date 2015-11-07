@@ -89,7 +89,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
     pacmd set-default-sink jack_out
     ```
     The `connect=0` parameter is crucial here! If omitted, PulseAudio will try to connect its plugs to the JACK output endpoint. In our setup this would circumvent the EQ and lead to doubled sound, so make sure this doesn't happen.
-- `chmod +x .jack/*.sh`
+- `chmod +x ~/.config/jack/*.sh`
 
 ## Setting up JACK
 ### General config
