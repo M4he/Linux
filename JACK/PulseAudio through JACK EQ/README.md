@@ -36,7 +36,7 @@ Sure one could use ALSA for those directly, however this would mean those applic
     @audio-rt       -       rtprio          99
     @audio-rt       -       memlock         unlimited
     ```
-- `sudo useradd -G audio-rt <user>` (replace <user> with your user name
+- `sudo useradd -G audio-rt user` (replace user with your user name)
 - log out and back in
 
 
