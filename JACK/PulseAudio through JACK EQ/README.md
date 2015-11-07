@@ -145,12 +145,16 @@ The following is a onetime procedure that sets up all the necessary connections 
     - click on 'Activate' at the top right
 
 ![Screenshot of the resulting Patchbay](./patchbay.png?raw=true)
+(notice the thin lines between the sockets, those indicate the virtual plug connections within JACK)
 
 ## Finalizing
 If everything worked out correctly, you should be able to hear sound from PulseAudio applications through JACK now. If so, it's time to complete the setup following the instructions below.
 
 ### Tweak the EQ and make it permanent
-You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio. If you are satisfied with your configuration:
+You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio.
+![Screenshot of the EQ](./eq.png?raw=true)
+(notice the thin lines between the sockets, those indicate the virtual plug connections within JACK)
+If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
 - add the Calf Host to your startup applications like this:
