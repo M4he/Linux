@@ -38,7 +38,7 @@ At least, the following packages are required:
 Create the necessary config dir: `mkdir -p ~/.config/jack`
 
 ## Enabling realtime scheduling for your user (optional)
-- `sudo nano .jack/pulse-pre-jack-start.sh` and append the following to the end of the file
+- `sudo nano /etc/security/limits.conf` and append the following to the end of the file
 
     ```
     @audio-rt       -       nice            -11
