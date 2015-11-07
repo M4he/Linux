@@ -77,6 +77,7 @@ run `calfjackhost`
     - tab 'misc'
         - enable D-Bus interface
 - close the settings window
+
 ### Setting up the Patchbay
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - in terminal execute `pacmd suspend true`
@@ -84,6 +85,7 @@ run `calfjackhost`
     - in terminal execute execute `pactl load-module module-jack-sink channels=2`
     - in terminal execute execute `pacmd set-default-sink jack_out`
 - in QJackCtl open up the Patchbay and configure it:
+
     #### Configure output plugs
     - add a PulseAudio output plug
         - click 'Add' on the left hand side
@@ -95,6 +97,7 @@ run `calfjackhost`
         - select 'Calf Studio Gear' as 'Client'
         - add both of its 'eq5' output sockets via the 'Add Plug' button
         - Choose 'Calf EQ' as name and hit 'OK'
+    
     #### Configure input plugs
     - add an EQ input plug
         - click 'Add' on the right hand side
@@ -106,6 +109,7 @@ run `calfjackhost`
         - select 'system' as 'Client'
         - add both of its output sockets via the 'Add Plug' button
         - Choose 'Master' as name and hit 'OK'
+    
     #### Connect the plugs
     - select 'PulseAudio' on left side and 'Calf EQ' from on right side
     - click 'Connect' at the bottom
@@ -113,13 +117,16 @@ run `calfjackhost`
     - click 'Connect' at the bottom
     - save your configuration using the button at the top
     - click on 'Activate' at the top right
+
 ## Finalizing
 If everything worked out correctly, you should be able to hear sound from PulseAudio applications through JACK now. If so, it's time to complete the setup following the instructions below.
+
 ### Tweak the EQ and make it permanent
 You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio. If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf`
 - add the Calf Host to your startup applications like this:
     - `calfjackhost --load ~/.config/jack/calf.conf &`
+
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available.
