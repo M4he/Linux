@@ -57,6 +57,8 @@ run `calfjackhost`
 ## Preparing PulseAudio
 
 ### Startup scripts
+The following scripts are to be executed before and after JACK starts, respectively. They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
+
 - `nano .jack/pulse-pre-jack-start.sh`
 
     ```
@@ -77,14 +79,18 @@ run `calfjackhost`
 ### General config
 - open up QJackCtl
 - go into settings
-    - tab 'settings'
+    - Tab 'Settings'
         -  under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' as 'driver'
         -  select your primary sound card/chip for 'interface'
         -  check 'realtime' if you enabled realtime scheduling as instructed above
         -  use the save button at the top
-    -  tab 'options'
+    -  Tab 'Options'
         - choose the previously created 'pulse-pre-jack-start.sh' script to be executed at startup
         - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
+    - Tab 'Misc'
+        - check 'Start JACK audio server on application startup'
+        - check 'Enable system try icon'
+        - check 'Start minimized to system tray'
 - close the settings window
 
 ### Setting up the Patchbay
