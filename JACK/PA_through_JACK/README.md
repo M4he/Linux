@@ -51,7 +51,8 @@ Create the necessary config dir: `mkdir -p ~/.config/jack`
     @audio-rt       -       rtprio          99
     @audio-rt       -       memlock         unlimited
     ```
-- `sudo useradd -G audio-rt user` (replace user with your user name)
+- `sudo groupadd audio-rt`
+- `sudo usermod -a -G audio-rt user` (replace user with your user name)
 - log out and back in
 
 
