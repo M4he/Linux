@@ -115,7 +115,7 @@ The following is a onetime procedure that sets up all the necessary connections 
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - in terminal execute `pacmd suspend true`
     - open up QJackCtl and click start, wait for JACK to be started
-    - in terminal execute execute `pactl load-module module-jack-sink channels=2`
+    - in terminal execute execute `pactl load-module module-jack-sink channels=2 connect=0`
     - in terminal execute execute `pacmd set-default-sink jack_out`
 - in QJackCtl open up the Patchbay and configure it:
 
