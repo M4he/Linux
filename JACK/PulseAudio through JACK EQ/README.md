@@ -84,8 +84,6 @@ run `calfjackhost`
     -  tab 'options'
         - choose the previously created 'pulse-pre-jack-start.sh' script to be executed at startup
         - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
-    - tab 'misc'
-        - enable D-Bus interface
 - close the settings window
 
 ### Setting up the Patchbay
