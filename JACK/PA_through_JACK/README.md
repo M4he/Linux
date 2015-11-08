@@ -35,7 +35,8 @@ To sum it up:
 ## Why not use JACK directly and ALSA as fallback?
 
 Using JACK from your audio applications directly is the standard approach for professional audio production in Linux. However there are several consumer applications which don't provide a JACK output module. To name a few: TeamSpeak (multi-user VoIP), Adobe Flash, wine or games in general.
-Sure one could use ALSA for those directly, however this would mean those applications will not get routed through the EQ. Plus getting rid of PulseAudio and setting up ALSA correctly might be cumbersome and/or introduce new issues to the user. Still using PulseAudio as an abstraction layer for the JACK connections enables you to throw any audio application at your config and it still gets routed through JACK and your EQ settings. 
+Sure one could use ALSA for those directly, however this would mean those applications will not get routed through the EQ.  
+Plus getting rid of PulseAudio and setting up ALSA correctly might be cumbersome and/or introduce new issues to the user. Still using PulseAudio as an abstraction layer for the JACK connections enables you to throw any audio application at your config and it still gets routed through JACK and your EQ settings. 
 
 # Setup
 ## Requirements
@@ -100,13 +101,13 @@ The following scripts are to be executed before and after JACK starts, respectiv
 - open up QJackCtl
 - Adjust at least the following settings:
     - Tab 'Settings'
-        - under parameter, beneath 'server prefix' make sure that 'name' is set to 'default' (without quotes) and choose 'alsa' as 'driver'
-        - select your primary sound card/chip for 'interface'
-        - check 'realtime' if you enabled realtime scheduling as instructed above
+        - under parameter, beneath **server prefix** make sure that **name** is set to 'default' (without quotes) and choose **alsa** as **driver**
+        - select your primary sound card/chip for **interface**
+        - check **realtime** if you enabled realtime scheduling as instructed above
         - use the save button at the top
     -  Tab 'Options'
-        - choose the previously created 'pulse-pre-jack-start.sh' script to be executed at startup
-        - choose the previously created 'pulse-post-jack-start.sh' script to be executed after startup
+        - choose the previously created **pulse-pre-jack-start.sh** script to be executed *on* startup
+        - choose the previously created **pulse-post-jack-start.sh** script to be executed *after* startup
         ![Screenshot of the script configuration](./scripts.png?raw=true)
     - Tab 'Misc'
         - check 'Start JACK audio server on application startup'
