@@ -20,6 +20,7 @@ You should have set up an EQ as instructed in the original guide and have your C
 ### 2. Plumbing config
 Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time. We will make use of a rules file for the tool `jack-plumbing`:
 - edit `~/.config/jack/rules`:
+
     ```
     (connect "PulseAudio JACK Sink:front-left" "Calf Studio Gear:eq5 In #1")
     (connect "PulseAudio JACK Sink:front-right" "Calf Studio Gear:eq5 In #2")
