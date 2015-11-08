@@ -50,7 +50,7 @@ pactl set-default-sink jack_out
 
 # start and connect the EQ
 calfjackhost --load ~/.config/jack/calf.conf &
-jack-plumbing -o ~/.config/jack/rules &
+[ -z `pidof jack-plumbing` ] && jack-plumbing -o ~/.config/jack/rules &
 ```
 Don't forget to `chmod +x ~/.config/jack/startup.sh`!  
 The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI.  
