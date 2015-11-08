@@ -27,6 +27,7 @@ Instead of using the Patchbay GUI, we will set up the JACK connections via comma
     (connect "Calf Studio Gear:eq5 Out #1" "system:playback_1")
     (connect "Calf Studio Gear:eq5 Out #2" "system:playback_2")
     ```
+    The brackets have to be included!  
     You can get the names of the plugs by using the **Connect** button of the Calf EQ module and having a look at the list of the available ports.
 
 ## Startup script
