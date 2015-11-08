@@ -88,9 +88,11 @@ The following scripts are to be executed before and after JACK starts, respectiv
     ```
     #!/bin/bash
     pactl load-module module-jack-sink channels=2 connect=0
+    pactl set-sink-volume jack_out 75%
     pacmd set-default-sink jack_out
     ```
-    The `connect=0` parameter is crucial here! If omitted, PulseAudio will try to connect its plugs to the JACK output endpoint. In our setup this would circumvent the EQ and lead to doubled sound, so make sure this doesn't happen.
+    The `connect=0` parameter is crucial here! If omitted, PulseAudio will try to connect its plugs to the JACK output endpoint. In our setup this would circumvent the EQ and lead to doubled sound, so make sure this doesn't happen.  
+    Adjust the `set-sink-volume` to your liking. From my experience, using 100% can lead to audio clipping in JACK when PulseAudio is outputting at a too high volume.
 - execute `chmod +x ~/.config/jack/*.sh`
 
 ## Setting up JACK
@@ -171,6 +173,15 @@ If you are satisfied with your configuration:
 
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available. As long as you don't start QJackCtl, you will run your standard PulseAudio configuration.
+
+### Tame PulseAudio
+PulseAudio likes to load an absurd amount of modules at startup. When using JACK for device control, you might want to get rid of some unnecessary modules.  
+Open up `/etc/pulse/default.pa` (as root) and look for `load-module` lines that don't have a `#` in front of them (lines with a `#` in front are ignored by PulseAudio).  
+If you find an offending module, put a `#` in front of that line. Some guesses are:
+    module-role-cork
+    module-bluetooth-*
+    module-jackdbus-detect
+
 
 ## Extending your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
