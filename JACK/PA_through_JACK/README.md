@@ -200,6 +200,8 @@ flat-volumes = no
 ## Extend your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
 
+If you want a more minimal config without using QJackCtl and the pre and post scripts, try [my followup guide](minimal_config/README.md).
+
 ## Remove JACK / revert the changes
 If you have modified any file in `/etc/pulse/` you will need to revert those changes manually (I hope you made backups).  
 Otherwise this is fairly simple: just remove QJackCtl from your autostart.  
