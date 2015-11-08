@@ -46,7 +46,8 @@ At least, the following packages are required:
 
 Create the necessary config dir: `mkdir -p ~/.config/jack`
 
-## Enabling realtime scheduling for your user (optional)
+## Enable realtime scheduling for your user (optional)
+This is not mandatory but highly recommended if you want your audio as flawless as possible.  
 - edit `/etc/security/limits.conf` (as root) and append the following to the end of the file
 
     ```
@@ -59,7 +60,7 @@ Create the necessary config dir: `mkdir -p ~/.config/jack`
 - log out and back in
 
 
-## Preparing the EQ
+## Prepare the EQ
 
 run `calfjackhost`
 
@@ -70,7 +71,7 @@ run `calfjackhost`
 (a 5 band EQ will be added to the window, which we will configure later)
 - IMPORTANT: don't close the 'Calf JACK Host' main window!
 
-## Preparing PulseAudio
+## Prepare PulseAudio
 
 ### Startup scripts
 The following scripts are to be executed before and after JACK starts, respectively (which we will configure later). They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
@@ -96,7 +97,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
     Adjust the `set-sink-volume` to your liking. From my experience, using 100% can lead to audio clipping in JACK when PulseAudio is outputting at a too high volume.
 - execute `chmod +x ~/.config/jack/*.sh`
 
-## Setting up JACK
+## Set up JACK
 ### General config
 - open up QJackCtl
 - Adjust at least the following settings:
@@ -115,14 +116,14 @@ The following scripts are to be executed before and after JACK starts, respectiv
         - check 'Start minimized to system tray'
 - close the settings window
 
-### Setting up the Patchbay
+### Set up the Patchbay
 The following is a onetime procedure that sets up all the necessary connections for JACK. Once saved, they will be automatically loaded by QJackCtl on each start.
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - execute `pacmd suspend true`
-    - open up **QJackCtl** and click **Start**, wait for JACK to be started
+    - open up QJackCtl and click **Start**, wait for JACK to be started
     - execute `pactl load-module module-jack-sink channels=2 connect=0`
     - execute `pacmd set-default-sink jack_out`
-- in **QJackCtl** open up the **Patchbay** and configure it:
+- in QJackCtl open up the **Patchbay** and configure it:
 
     #### Configure output plugs
     - add a PulseAudio output plug
@@ -160,7 +161,7 @@ The following is a onetime procedure that sets up all the necessary connections 
 
 (notice the thin lines between the sockets, those indicate the virtual plug connections within JACK)
 
-## Finalizing
+## Finalize the setup
 If everything worked out correctly, you should be able to hear sound from PulseAudio applications through JACK now. If so, it's time to complete the setup following the instructions below.
 
 ### Tweak the EQ and make it permanent
@@ -189,5 +190,5 @@ If you experience the issue that changing the volume in one of your applications
 flat-volumes = no
 ```
 
-## Extending your config
+## Extend your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
