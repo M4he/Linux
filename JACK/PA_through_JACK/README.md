@@ -46,7 +46,7 @@ At least, the following packages are required:
 Create the necessary config dir: `mkdir -p ~/.config/jack`
 
 ## Enabling realtime scheduling for your user (optional)
-- `sudo nano /etc/security/limits.conf` and append the following to the end of the file
+- edit `/etc/security/limits.conf` (as root) and append the following to the end of the file
 
     ```
     @audio-rt       -       nice            -11
@@ -74,7 +74,7 @@ run `calfjackhost`
 ### Startup scripts
 The following scripts are to be executed before and after JACK starts, respectively (which we will configure later). They modify the running PulseAudio server to adjust to JACK. This enables us to leave the PulseAudio config as it is, only temporarily modifying it on demand.
 
-- `nano ~/.config/jack/pulse-pre-jack-start.sh`
+- edit `~/.config/jack/pulse-pre-jack-start.sh`
 
     ```
     #!/bin/bash
@@ -83,7 +83,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
 
     ```
     The `calfjackhost --load ~/.jack/calf.conf &` line will startup the EQ module window before JACK starts. Without this module running, you will get no sound as JACK routes everything through it.
-- `nano ~/.config/jack/pulse-post-jack-start.sh`
+- edit `~/.config/jack/pulse-post-jack-start.sh`
 
     ```
     #!/bin/bash
@@ -91,7 +91,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
     pacmd set-default-sink jack_out
     ```
     The `connect=0` parameter is crucial here! If omitted, PulseAudio will try to connect its plugs to the JACK output endpoint. In our setup this would circumvent the EQ and lead to doubled sound, so make sure this doesn't happen.
-- `chmod +x ~/.config/jack/*.sh`
+- execute `chmod +x ~/.config/jack/*.sh`
 
 ## Setting up JACK
 ### General config
@@ -115,10 +115,10 @@ The following scripts are to be executed before and after JACK starts, respectiv
 ### Setting up the Patchbay
 The following is a onetime procedure that sets up all the necessary connections for JACK. Once saved, they will be automatically loaded by QJackCtl on each start.
 - prepare PulseAudio JACK output to make its plugs visible to JACK
-    - in terminal execute `pacmd suspend true`
+    - execute `pacmd suspend true`
     - open up QJackCtl and click start, wait for JACK to be started
-    - in terminal execute execute `pactl load-module module-jack-sink channels=2 connect=0`
-    - in terminal execute execute `pacmd set-default-sink jack_out`
+    - execute `pactl load-module module-jack-sink channels=2 connect=0`
+    - execute `pacmd set-default-sink jack_out`
 - in QJackCtl open up the Patchbay and configure it:
 
     #### Configure output plugs
