@@ -119,33 +119,33 @@ The following scripts are to be executed before and after JACK starts, respectiv
 The following is a onetime procedure that sets up all the necessary connections for JACK. Once saved, they will be automatically loaded by QJackCtl on each start.
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - execute `pacmd suspend true`
-    - open up QJackCtl and click **Start**, wait for JACK to be started
+    - open up **QJackCtl** and click **Start**, wait for JACK to be started
     - execute `pactl load-module module-jack-sink channels=2 connect=0`
     - execute `pacmd set-default-sink jack_out`
-- in QJackCtl open up the Patchbay and configure it:
+- in **QJackCtl** open up the **Patchbay** and configure it:
 
     #### Configure output plugs
     - add a PulseAudio output plug
-        - click 'Add' on the left hand side
+        - click **Add** on the left hand side
         - select 'PulseAudio JACK sink' as 'Client'
-        - add both of its output sockets via the 'Add Plug' button
+        - add both of its output sockets via the **Add Plug** button
         - Choose 'PulseAudio' as name and hit 'OK'
     - add an EQ output plug
-        - click 'Add' on the left hand side
+        - click **Add** on the left hand side
         - select 'Calf Studio Gear' as 'Client'
-        - add both of its 'eq5' output sockets via the 'Add Plug' button
+        - add both of its 'eq5' output sockets via the **Add Plug** button
         - Choose 'Calf EQ' as name and hit 'OK'
     
     #### Configure input plugs
     - add an EQ input plug
-        - click 'Add' on the right hand side
+        - click **Add** on the right hand side
         - select 'Calf Studio Gear' as 'Client'
-        - add both of its 'eq5' input sockets via the 'Add Plug' button
+        - add both of its 'eq5' input sockets via the **Add Plug** button
         - Choose 'Calf EQ' as name and hit 'OK'
     - add a master input plug
-        - click 'Add' on the right hand side
+        - click **Add** on the right hand side
         - select 'system' as 'Client'
-        - add both of its output sockets via the 'Add Plug' button
+        - add both of its output sockets via the **Add Plug** button
         - Choose 'Master' as name and hit 'OK'
     
     #### Connect the plugs
