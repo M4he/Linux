@@ -13,12 +13,13 @@ Additonally, we need the command line tool `jack-plumbing`. For Debian systems t
 
     jack-tools
 
-## Config requirements
+## Required config files
 ### 1. Calf config
 You should have set up an EQ as instructed in the original guide and have your Calf rack configuration saved in `~/.config/jack/calf.conf`
 
 ### 2. Plumbing config
-Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time. We will make use of a rules file for the tool `jack-plumbing`:
+Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time.  
+We will make use of a rules file for the tool `jack-plumbing`:
 - edit `~/.config/jack/rules`:
 
     ```
@@ -48,5 +49,5 @@ pactl set-default-sink jack_out
 calfjackhost --load ~/.config/jack/calf.conf &
 jack-plumbing -o ~/.config/jack/rules &
 ```
-The `jackd` startup command is the same as in your `~/.jackdrc` file created by QJackCtl when you configure it using the GUI.  
 Don't forget to `chmod +x ~/.config/jack/startup.sh`!
+The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI.  
