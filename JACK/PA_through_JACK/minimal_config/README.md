@@ -13,6 +13,9 @@ Additonally, we need the command line tool `jack-plumbing`. For Debian systems t
 
     jack-tools
 
+## Realtime scheduling
+See the [corresponding section in the original guide](../README.md#enable-realtime-scheduling-for-your-user-optional).
+
 ## Required config files
 ### 1. Calf config
 You should have set up an EQ as instructed in the original guide and have your Calf rack configuration saved in `~/.config/jack/calf.conf`
