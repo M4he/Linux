@@ -183,7 +183,7 @@ If you find an offending module, put a `#` in front of that line. Some guesses a
     module-bluetooth-*
     module-jackdbus-detect
 
-### Fix weird volume behavior of PulseAudio (flat-volumes)
+#### Fix weird volume behavior of PulseAudio (flat-volumes)
 If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
 ```
 flat-volumes = no
