@@ -208,3 +208,5 @@ If you want, you may also remove the JACK-related config files and folders:
     ~/.jackdrc
     ~/.calfrc
     ~/.calfpresets
+
+Additionally, you can remove the Calf and JACK related packages using your package manager.
