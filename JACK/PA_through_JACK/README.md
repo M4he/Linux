@@ -188,12 +188,12 @@ If you find an offending module, put a `#` in front of that line. Some guesses a
 The `module-role-cork` tends to mute all other audio sources when VoIP applications are active (e.g. TeamSpeak or Skype) which might not be desired.  
 The `module-jackdbus-detect` is not the same as the module in the scripts earlier. It's for D-Bus communication with JACK and might mess up your setup if you accidently activate D-Bus for JACK.
 
-    #### Fix weird volume behavior of PulseAudio (flat-volumes)
-    
-    If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
-    ```
-    flat-volumes = no
-    ```
+#### Fix weird volume behavior of PulseAudio (flat-volumes)
+
+If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
+```
+flat-volumes = no
+```
 
 ## Extend your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
