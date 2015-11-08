@@ -178,6 +178,7 @@ Either add `qjackctl` to your autostart or start it manually after login when yo
 PulseAudio likes to load an absurd amount of modules at startup. When using JACK for device control, you might want to get rid of some unnecessary modules.  
 Open up `/etc/pulse/default.pa` (as root) and look for `load-module` lines that don't have a `#` in front of them (lines with a `#` in front are ignored by PulseAudio).  
 If you find an offending module, put a `#` in front of that line. Some guesses are:
+
     module-role-cork
     module-bluetooth-*
     module-jackdbus-detect
