@@ -177,6 +177,7 @@ If you are satisfied with your configuration:
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available. As long as you don't start QJackCtl, you will run your standard PulseAudio configuration.
 
 ### Tame PulseAudio
+**The following will modify your PulseAudio; do at your own risk and make a backup of modified files beforehand**
 PulseAudio likes to load an absurd amount of modules at startup. When using JACK for device control, you might want to get rid of some unnecessary modules. Open up `/etc/pulse/default.pa` (as root) and look for `load-module` lines that don't have a `#` in front of them (lines with a `#` in front are ignored by PulseAudio).  
 If you find an offending module, put a `#` in front of that line. Some guesses are:
 
@@ -184,11 +185,24 @@ If you find an offending module, put a `#` in front of that line. Some guesses a
     module-bluetooth-*
     module-jackdbus-detect
 
-#### Fix weird volume behavior of PulseAudio (flat-volumes)
-If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
-```
-flat-volumes = no
-```
+The `module-role-cork` tends to mute all other audio sources when VoIP applications are active (e.g. TeamSpeak or Skype) which might not be desired.  
+The `module-jackdbus-detect` is not the same as the module in the scripts earlier. It's for D-Bus communication with JACK and might mess up your setup if you accidently activate D-Bus for JACK.
+
+    #### Fix weird volume behavior of PulseAudio (flat-volumes)
+    If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
+    ```
+    flat-volumes = no
+    ```
 
 ## Extend your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
+
+## Remove JACK / revert the changes
+If you have modified any file in `/etc/pulse/` you will need to revert those changes manually (I hope you made backups).  
+Otherwise this is fairly simple: just remove QJackCtl from your autostart.  
+If you want, you may also remove the JACK-related config files and folders:
+    ~/.config/jack
+    ~/.config/calf
+    ~/.jackdrc
+    ~/.calfrc
+    ~/.calfpresets
