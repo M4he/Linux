@@ -189,6 +189,7 @@ The `module-role-cork` tends to mute all other audio sources when VoIP applicati
 The `module-jackdbus-detect` is not the same as the module in the scripts earlier. It's for D-Bus communication with JACK and might mess up your setup if you accidently activate D-Bus for JACK.
 
     #### Fix weird volume behavior of PulseAudio (flat-volumes)
+    
     If you experience the issue that changing the volume in one of your applications also affects all other audio on your system then add the following line to `/etc/pulse/daemon.conf`:
     ```
     flat-volumes = no
@@ -201,6 +202,7 @@ Once you are familiar with how the JACK routing works, you can create more Calf 
 If you have modified any file in `/etc/pulse/` you will need to revert those changes manually (I hope you made backups).  
 Otherwise this is fairly simple: just remove QJackCtl from your autostart.  
 If you want, you may also remove the JACK-related config files and folders:
+
     ~/.config/jack
     ~/.config/calf
     ~/.jackdrc
