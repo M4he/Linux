@@ -1,6 +1,8 @@
 # Preface
+This is a detailed guide about routing PulseAudio through JACK for better sound performance and system-wide enhancements (like Equalizer etc.).
+
 ## This is a WIP
-This is guide is a rough guideline that sums up the steps I have done for my system. It has only been tested on Debian 8 (Jessie) so far, YMMV!
+This is guide is a rough guideline that sums up the steps I have done for my systems. It has only been tested on Debian 8 (Jessie) so far, thus YMMV!
 If you succeed or fail using this guide, you can drop a feedback in the 'Issues' section of my GitHub repo if you want.
 
 The following section will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter 'Setup' below.
@@ -18,16 +20,16 @@ You should have at least a basic understanding of your Linux system and be famil
 - you want to fix audio skipping that occurs while using PulseAudio-based equalizer modules (e.g. FFT sink)
 
 
-## What we will try to achieve
+## What this guide will try to achieve
 
-We will place JACK in between ALSA and PulseAudio. JACK will provide a professional, low-latency interface and control of your sound card/chip through ALSA. This attempts to solve many issues that emerge from PulseAudio being bloatware in regards of audio control. Additionally JACK can route the audio signals through any modification software (e.g. EQ) before handing it to the ALSA output, without causing latency problems or disturbances in your audio.
+We will place JACK in between ALSA and PulseAudio. JACK will provide a professional, low-latency interface and control of your sound card/chip through ALSA. This attempts to solve many issues that emerge from PulseAudio being bloatware in regards of audio control. Additionally JACK can route the audio signals through any JACK-compatible modification software (e.g. EQ) before handing it to the ALSA output, without causing latency problems or disturbances in your audio.
 When successful, your system will still run PulseAudio but let JACK handle the audio control. This is extremely user-friendly as you don't have to change anything for your audio applications.
 To sum it up:
 
 - you can keep using PulseAudio for your applications
 - you will get a system-wide EQ and other audio manipulation tools for limitless tweaking of your system's sound
 - you will get rid of most audio imperfections caused by PulseAudio's latency
-- you will achieve a setup that doesn't touch your standard PulseAudio config until you start JACK
+- you will achieve a setup that doesn't touch your standard PulseAudio config until JACK is explicitly started
 
 
 ## Why not use JACK directly and ALSA as fallback?
