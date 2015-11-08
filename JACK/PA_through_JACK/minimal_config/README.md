@@ -1,5 +1,5 @@
 # Preface
-This is a quick followup to [my other guid](../README.md) where I explained how to route PulseAudio through JACK using the QJackCtl GUI. 
+This is a quick followup to [my other guide](../README.md) where I explained how to route PulseAudio through JACK using the QJackCtl GUI. 
 The following walkthrough is intended for those who wish to permanently use their PulseAudio-through-JACK configuration as created in the original guide without having to rely on the QJackCtl GUI.  
 It will introduce a minimalistic approach based on config files and command line tools mostly and is targeted at advanced users.
 
