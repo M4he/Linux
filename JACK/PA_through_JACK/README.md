@@ -100,16 +100,16 @@ The following scripts are to be executed before and after JACK starts, respectiv
 ### General config
 - open up QJackCtl
 - Adjust at least the following settings:
-    - Tab 'Settings'
+    - Tab **Settings**
         - under parameter, beneath **server prefix** make sure that **name** is set to 'default' (without quotes) and choose **alsa** as **driver**
         - select your primary sound card/chip for **interface**
         - check **realtime** if you enabled realtime scheduling as instructed above
         - use the save button at the top
-    -  Tab 'Options'
+    -  Tab **Options**
         - choose the previously created **pulse-pre-jack-start.sh** script to be executed *on* startup
         - choose the previously created **pulse-post-jack-start.sh** script to be executed *after* startup
         ![Screenshot of the script configuration](./scripts.png?raw=true)
-    - Tab 'Misc'
+    - Tab **Misc**
         - check 'Start JACK audio server on application startup'
         - check 'Enable system tray icon'
         - check 'Start minimized to system tray'
