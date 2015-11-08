@@ -119,7 +119,7 @@ The following scripts are to be executed before and after JACK starts, respectiv
 The following is a onetime procedure that sets up all the necessary connections for JACK. Once saved, they will be automatically loaded by QJackCtl on each start.
 - prepare PulseAudio JACK output to make its plugs visible to JACK
     - execute `pacmd suspend true`
-    - open up QJackCtl and click start, wait for JACK to be started
+    - open up QJackCtl and click **Start**, wait for JACK to be started
     - execute `pactl load-module module-jack-sink channels=2 connect=0`
     - execute `pacmd set-default-sink jack_out`
 - in QJackCtl open up the Patchbay and configure it:
