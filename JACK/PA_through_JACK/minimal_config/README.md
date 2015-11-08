@@ -49,7 +49,7 @@ pactl set-default-sink jack_out
 calfjackhost --load ~/.config/jack/calf.conf &
 jack-plumbing -o ~/.config/jack/rules &
 ```
-Don't forget to `chmod +x ~/.config/jack/startup.sh`!
+Don't forget to `chmod +x ~/.config/jack/startup.sh`!  
 The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI.  
 
 Unfortunately, you still have to keep the Calf rack open as there is no command line option for it to be used without the GUI.
