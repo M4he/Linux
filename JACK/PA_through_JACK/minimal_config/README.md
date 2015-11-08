@@ -18,7 +18,7 @@ See the [corresponding section in the original guide](../README.md#enable-realti
 
 ## Required config files
 ### 1. Calf config
-You should have set up an EQ as instructed in the original guide and have your Calf rack configuration saved in `~/.config/jack/calf.conf`
+You should have [set up an EQ](../README.md#prepare-the-eq) as instructed in the original guide and have your Calf rack [configuration saved](../README.md#prepare-the-eq) in `~/.config/jack/calf.conf`
 
 ### 2. Plumbing config
 Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time.  

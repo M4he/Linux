@@ -170,6 +170,7 @@ You may now go into the Calf JACK Host window again and manipulate the EQ to you
 
 ![Screenshot of the EQ](./eq.png?raw=true)
 
+#### Save the configuration
 If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
