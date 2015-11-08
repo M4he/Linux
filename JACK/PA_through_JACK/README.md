@@ -129,32 +129,32 @@ The following is a onetime procedure that sets up all the necessary connections 
         - click **Add** on the left hand side
         - select 'PulseAudio JACK sink' as 'Client'
         - add both of its output sockets via the **Add Plug** button
-        - Choose 'PulseAudio' as name and hit 'OK'
+        - Choose 'PulseAudio' as name and hit **OK**
     - add an EQ output plug
         - click **Add** on the left hand side
         - select 'Calf Studio Gear' as 'Client'
         - add both of its 'eq5' output sockets via the **Add Plug** button
-        - Choose 'Calf EQ' as name and hit 'OK'
+        - Choose 'Calf EQ' as name and hit **OK**
     
     #### Configure input plugs
     - add an EQ input plug
         - click **Add** on the right hand side
         - select 'Calf Studio Gear' as 'Client'
         - add both of its 'eq5' input sockets via the **Add Plug** button
-        - Choose 'Calf EQ' as name and hit 'OK'
+        - Choose 'Calf EQ' as name and hit **OK**
     - add a master input plug
         - click **Add** on the right hand side
         - select 'system' as 'Client'
         - add both of its output sockets via the **Add Plug** button
-        - Choose 'Master' as name and hit 'OK'
+        - Choose 'Master' as name and hit **OK**
     
     #### Connect the plugs
     - select 'PulseAudio' on left side and 'Calf EQ' from on right side
-    - click 'Connect' at the bottom
+    - click **Connect** at the bottom
     - select 'Calf EQ' on the left side and 'Master' on the right side
-    - click 'Connect' at the bottom
-    - save your configuration using the button at the top
-    - click on 'Activate' at the top right
+    - click **Connect** at the bottom
+    - save your configuration using the **Save...** button at the top
+    - click on **Activate** at the top right
 
 ![Screenshot of the resulting Patchbay](./patchbay.png?raw=true)
 
