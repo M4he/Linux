@@ -33,7 +33,7 @@ To sum it up:
 - you will achieve a setup that doesn't touch your standard PulseAudio config until JACK is explicitly started
 
 ## Where this method falls short
-Please see [the final remarks](#final-remarks).
+Please see [Final remarks](#final-remarks).
 
 ## Why not use JACK directly and ALSA as fallback?
 
