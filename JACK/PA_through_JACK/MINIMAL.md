@@ -14,7 +14,8 @@ Additonally, we need the command line tool `jack-plumbing`. For Debian systems t
     jack-tools
 
 ## Realtime scheduling
-See the [corresponding section in the original guide](README.md#enable-realtime-scheduling-for-your-user-optional).
+See the [corresponding section in the original guide](README.md#enable-realtime-scheduling-for-your-user-optional).  
+If you decide to omit adding realtime scheduling, you will need to add a `-r` flag to the `jackd` command in the startup script illustrated at the end of this guide!
 
 ## Required config files
 ### 1. Calf config
