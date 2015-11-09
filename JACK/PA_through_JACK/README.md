@@ -1,6 +1,6 @@
 # Preface
 This is a detailed guide about routing PulseAudio through JACK for better sound performance and system-wide enhancements (like Equalizer etc.).  
-This guide makes heavy use of GUI tools; if you are an advanced user and prefer a more minimal approach, you might try [my followup guide](MINIMAL.md).
+This guide makes heavy use of GUI tools - if you are an advanced user and prefer a more minimalistic approach, you might try [my followup guide](MINIMAL.md).
 
 ## This is a WIP
 This is guide is a rough guideline that sums up the steps I have done for my systems. It has only been tested on Debian 8 (Jessie) so far, thus YMMV!
