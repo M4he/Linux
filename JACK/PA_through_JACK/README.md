@@ -1,5 +1,5 @@
 # Preface
-This is a detailed guide about routing PulseAudio through JACK for better sound performance and system-wide enhancements (like Equalizer etc.).  
+This is a detailed guide about routing PulseAudio through JACK for better sound performance and system-wide enhancements (like [Equalizer](eq.png) etc.).  
 This guide makes heavy use of GUI tools - if you are an advanced user and prefer a more minimalistic approach, you might try [my followup guide](MINIMAL.md).
 
 This chapter will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter [Setup](#setup) below.
