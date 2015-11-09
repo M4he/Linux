@@ -1,5 +1,5 @@
 # Preface
-This is a quick followup to [my other guide](../README.md) where I explained how to route PulseAudio through JACK using the QJackCtl GUI. 
+This is a quick followup to [my other guide](README.md) where I explained how to route PulseAudio through JACK using the QJackCtl GUI. 
 The following walkthrough is intended for those who wish to permanently use their PulseAudio-through-JACK configuration as created in the original guide without having to rely on the QJackCtl GUI.  
 It will introduce a minimalistic approach based on config files and command line tools mostly and is targeted at advanced users.
 
@@ -14,11 +14,11 @@ Additonally, we need the command line tool `jack-plumbing`. For Debian systems t
     jack-tools
 
 ## Realtime scheduling
-See the [corresponding section in the original guide](../README.md#enable-realtime-scheduling-for-your-user-optional).
+See the [corresponding section in the original guide](README.md#enable-realtime-scheduling-for-your-user-optional).
 
 ## Required config files
 ### 1. Calf config
-You should have [set up an EQ](../README.md#prepare-the-eq) as instructed in the original guide and have your Calf rack [configuration saved](../README.md#save-the-configuration) in `~/.config/jack/calf.conf`
+You should have [set up an EQ](README.md#prepare-the-eq) as instructed in the original guide and have your Calf rack [configuration saved](README.md#save-the-configuration) in `~/.config/jack/calf.conf`
 
 ### 2. Plumbing config
 Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time.  

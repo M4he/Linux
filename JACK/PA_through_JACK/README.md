@@ -1,6 +1,6 @@
 # Preface
 This is a detailed guide about routing PulseAudio through JACK for better sound performance and system-wide enhancements (like Equalizer etc.).  
-This guide makes heavy use of GUI tools; if you are an advanced user and prefer a more minimal approach, you might try [my followup guide](minimal_config/README.md).
+This guide makes heavy use of GUI tools; if you are an advanced user and prefer a more minimal approach, you might try [my followup guide](MINIMAL.md).
 
 ## This is a WIP
 This is guide is a rough guideline that sums up the steps I have done for my systems. It has only been tested on Debian 8 (Jessie) so far, thus YMMV!
@@ -200,7 +200,7 @@ flat-volumes = no
 ## Extend your config
 Once you are familiar with how the JACK routing works, you can create more Calf modules and route them together using the Patchbay just like you would with real audio rack. This way you can build more complex setups for your system's audio to suit your needs.
 
-If you want a more minimal config without using QJackCtl and the pre and post scripts, try [my followup guide](minimal_config/README.md).
+If you want a more minimal config without using QJackCtl and the pre and post scripts, try [my followup guide](MINIMAL.md).
 
 ## Remove JACK / revert the changes
 If you have modified any file in `/etc/pulse/` you will need to revert those changes manually (I hope you made backups).  
