@@ -44,7 +44,7 @@ Finally, this script is to be added to autostart:
 if [ -z `pidof jackd` ]
 then
     pulseaudio --kill
-    jackd -ndefault -dalsa -dhw:DX -r44100 -p1024 -n2 &
+    jackd -ndefault -dalsa -dhw:0 -r44100 -p1024 -n2 &
     # wait for JACK to be up and running
     jack_wait -w
     pulseaudio --start
@@ -52,7 +52,7 @@ fi
 
 # connect PulseAudio to JACK
 pactl load-module module-jack-sink channels=2 connect=0
-pactl set-sink-volume jack_out 100%
+pactl set-sink-volume jack_out 75%
 pactl set-default-sink jack_out
 
 # start EQ and Connector if not already running
