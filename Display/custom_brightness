@@ -1,0 +1,91 @@
+#!/bin/sh
+
+# This script is intended for use with displays
+# which lack a decent brightness control.
+# Change DIS to your xrandr display you want
+# to manipulate, change STO to the file path
+# where you want the value to be stored.
+
+# Arguments
+# up, down: raises/lowers the current bright-
+#           ness by 10 percent
+# none:     by leaving the parameters blank,
+#           the script will try to restore the
+#           value stored in $STO (useful for
+#           autostart)
+# integer:  any integer number between and in-
+#           cluding 10 - 100 is accepted as
+#           percentage for a new brightness
+#           value 
+DIS="DVI-I-1 HDMI-0"
+STO=~/.brightness
+ICN="display-brightness-symbolic"
+
+if [ $# -eq 0 ]
+then
+	if [ -f $STO ]
+	then
+		PCT=$(cat $STO)
+		[ $PCT -lt 10 ] && PCT=10
+		[ $PCT -gt 100 ] && PCT=100
+		VAL=$(echo "scale=1; $PCT/100" | bc)
+		for X in $DIS; do
+			xrandr --output $X --brightness $VAL;
+		done
+		notify-send " " -i $ICN -h int:value:$PCT -h string:x-canonical-private-synchronous:dpb
+	fi 
+else
+	case $1 in
+		up )
+			# check if $STO exists
+			if [ -f $STO ]
+			then
+				PCT=$(cat $STO)
+			else
+				# assuming brightness is unconfigured
+				PCT="100"
+			fi
+
+			PCT=$(($PCT+10))
+			[ $PCT -gt 100 ] && PCT=100
+			VAL=$(echo "scale=1; $PCT/100" | bc)	
+			echo $PCT > $STO
+			for X in $DIS; do
+				xrandr --output $X --brightness $VAL;
+			done
+			notify-send " " -i $ICN -h int:value:$PCT -h string:x-canonical-private-synchronous:
+		;;
+
+		down )
+			# check if $STO exists
+			if [ -f $STO ]
+			then
+				PCT=$(cat $STO)
+			else
+				# assuming brightness is unconfigured
+				PCT="100"
+			fi
+
+			PCT=$(($PCT-10))
+			[ $PCT -lt 10 ] && PCT=10
+			VAL=$(echo "scale=1; $PCT/100" | bc)	
+			echo $PCT > $STO
+			for X in $DIS
+			do
+				xrandr --output $X --brightness $VAL;
+			done
+			notify-send " " -i $ICN -h int:value:$PCT -h string:x-canonical-private-synchronous:
+		;;
+
+		* )
+			PCT=$1
+			[ $PCT -lt 10 ] && PCT=10
+			[ $PCT -gt 100 ] && PCT=100
+			VAL=$(echo "scale=1; $PCT/100" | bc)
+			echo $PCT > $STO
+			for X in $DIS; do
+				xrandr --output $X --brightness $VAL;
+			done
+			notify-send " " -i $ICN -h int:value:$PCT -h string:x-canonical-private-synchronous:
+	esac
+fi
