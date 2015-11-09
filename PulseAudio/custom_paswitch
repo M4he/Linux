@@ -41,4 +41,4 @@ pactl list short sink-inputs|while read stream; do
 done
 
 # display notification bubble
-notify-send "PulseAudio" "Outpu: $1" -i "audio-speakers-symbolic"
+notify-send "PulseAudio" "Output: $1" -i "audio-speakers-symbolic"
