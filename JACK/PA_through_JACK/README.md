@@ -175,6 +175,7 @@ Take note that you have to set the green status field above the corresponding co
 If you are satisfied with your configuration:
 - go back to the 'Calf JACK Host' main window and select 'File' > 'Save as...'
 - save the configuration, e.g. to `~/.config/jack/calf.conf` (make sure the path matches to that in `~/.config/jack/pulse-pre-jack-start.sh`)
+    - if you ever make changes to your EQ or other Calf modules, be sure to save your config in the Calf main window to that path!
 
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available. As long as you don't start QJackCtl, you will run your standard PulseAudio configuration.
