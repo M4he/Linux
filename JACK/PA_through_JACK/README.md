@@ -166,8 +166,8 @@ The following is a onetime procedure that sets up all the necessary connections 
 If everything worked out correctly, you should be able to hear sound from PulseAudio applications through JACK now. If so, it's time to complete the setup following the instructions below.
 
 ### Tweak the EQ and make it permanent
-You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio.  
-To do this, simply click **Edit** on the EQ module in the Calf rack and adjust the controls. Take note that you have to set the green status field above the corresponding control to **ON** for it to be effective!
+You may now go into the Calf JACK Host window again and manipulate the EQ to your liking, it should immediately affect your audio. To do this, simply click **Edit** on the EQ module in the Calf rack and adjust the controls.  
+Take note that you have to set the green status field above the corresponding control to **ON** for it to be effective!
 
 #### Save the configuration
 If you are satisfied with your configuration:
