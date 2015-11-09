@@ -177,7 +177,7 @@ If you are satisfied with your configuration:
 ### Add JACK to your startup
 Either add `qjackctl` to your autostart or start it manually after login when you need it. QJackCtl will automatically restore the Patchbay config and will connect the plugs when they become available. As long as you don't start QJackCtl, you will run your standard PulseAudio configuration.
 
-### Tame PulseAudio
+### Tame PulseAudio (optional)
 **The following will modify your PulseAudio; do at your own risk and make a backup of modified files beforehand**
 PulseAudio likes to load an absurd amount of modules at startup. When using JACK for device control, you might want to get rid of some unnecessary modules. Open up `/etc/pulse/default.pa` (as root) and look for `load-module` lines that don't have a `#` in front of them (lines with a `#` in front are ignored by PulseAudio).  
 If you find an offending module, put a `#` in front of that line. Some guesses are:
