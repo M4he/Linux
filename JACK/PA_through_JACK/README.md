@@ -217,7 +217,7 @@ If you want, you may also remove the JACK-related config files and folders:
 Additionally, you can remove the Calf and JACK related packages using your package manager if you don't intend to use them ever again.
 
 # Final remarks
-Be aware that you will need to keep the Calf rack window open at all times - the EQ module disconnects as soon as you close it and you will loose your sound (until you reload the EQ module and config that is).
+Be aware that you will need to keep the Calf rack window open at all times - the EQ module disconnects as soon as you close it and you will loose your sound (until you reload the EQ module and config that is).  
 Unfortunately, there's no way for the Calf Studio Gear to start up hidden or as a tray icon.
 
 ## Issues with suspend/hibernate
