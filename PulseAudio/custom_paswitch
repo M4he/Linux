@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <OutputDeviceName>" >&2
+    exit 1
+fi
+
+sinkName="$1"
+
+# edit the list below to match the names from
+# `pactl list sinks | grep "Name: "`
+
+case $1 in
+JACK)
+	sinkID="jack_out"
+    ;;
+Xonar)
+	sinkID="alsa_output.pci-0000_07_04.0.analog-stereo"
+    ;;
+iMic)
+	sinkID="alsa_output.usb-Griffin_Technology__Inc_iMic_USB_audio_system-00-system.analog-stereo"
+    ;;
+HDMI)
+	sinkID="alsa_output.pci-0000_01_00.1.hdmi-stereo"
+    ;;
+*)
+	echo "Wrong parameter"
+    exit 1
+    ;;
+esac
+
+# get device ID for specified sink
+newSink=`pactl list sinks short | grep $sinkID | cut -f 1`
+
+pactl set-default-sink $newSink
+
+# move all running audio streams to the new sink
+pactl list short sink-inputs|while read stream; do
+    streamId=$(echo $stream|cut '-d ' -f1)
+    pactl move-sink-input "$streamId" "$newSink"
+done
+
+# display notification bubble
+notify-send "PulseAudio" "Outpu: $1" -i "audio-speakers-symbolic"
