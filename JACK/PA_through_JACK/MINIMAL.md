@@ -24,7 +24,7 @@ You should have [set up an EQ](README.md#prepare-the-eq) as instructed in the or
 ### 2. Plumbing config
 Instead of using the Patchbay GUI, we will set up the JACK connections via command line this time.  
 We will make use of a rules file for the tool `jack-plumbing`:
-- edit `~/.config/jack/rules`:
+- create `~/.config/jack/rules` with the following content:
 
     ```
     (connect "PulseAudio JACK Sink:front-left" "Calf Studio Gear:eq5 In #1")
@@ -60,7 +60,7 @@ pactl set-default-sink jack_out
 [ -z `pidof jack-plumbing` ] && jack-plumbing -o ~/.config/jack/rules &
 exit
 ```
-Don't forget to `chmod +x ~/.config/jack/startup.sh`!  
-The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI.  
+Don't forget to `chmod +x` on the script!  
+The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI. Ḿake sure the `-dhw` flag matches your hardware.
 
 Unfortunately, you still have to keep the Calf rack open as there is no command line option for it to be used without the GUI.
