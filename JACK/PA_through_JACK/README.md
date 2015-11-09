@@ -214,3 +214,10 @@ If you want, you may also remove the JACK-related config files and folders:
     ~/.calfpresets
 
 Additionally, you can remove the Calf and JACK related packages using your package manager.
+
+# Final remarks
+Be aware that you will need to keep the Calf rack window open at all times - the EQ module disconnects as soon as you close it and you will loose your sound (until you reload the EQ module and config that is). Unfortunately, there's no non-GUI way for the Calf Studio Gear.
+
+## Issues with suspend/hibernate
+If you use suspend and/or hibernate on your system you might run into the issue that after waking the system up, you have no sound. This is most likely due to PulseAudio loosing the JACK sink or not picking it up again correctly.  
+I still have to investigate this issue and (hopefully) add a fix to this guide as soon as I come up with one.

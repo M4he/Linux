@@ -63,4 +63,5 @@ exit
 Don't forget to `chmod +x` on the script!  
 The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI. Ḿake sure the `-dhw` flag matches your hardware.
 
-Unfortunately, you still have to keep the Calf rack open as there is no command line option for it to be used without the GUI.
+# Final remarks
+The [things mentioned in the original guide](README.md#final-remarks) still apply.
