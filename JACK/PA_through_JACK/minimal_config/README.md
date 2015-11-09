@@ -46,7 +46,7 @@ then
     jackd -ndefault -dalsa -dhw:DX -r44100 -p1024 -n2 &
     # wait for JACK to be up and running
     jack_wait -w
-    nohup pulseaudio --start
+    pulseaudio --start
 fi
 
 # connect PulseAudio to JACK
