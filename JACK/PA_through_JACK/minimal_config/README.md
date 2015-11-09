@@ -39,18 +39,25 @@ Finally, this script is to be added to autostart:
 ```
 #!/bin/bash
 
-# start the JACK daemon
-jackd -ndefault -dalsa -dhw:PCH -r44100 -p1024 -n2 &
-sleep 1
+# startup JACK if it isn't running
+if [ -z `pidof jackd` ]
+then
+    pulseaudio --kill
+    jackd -ndefault -dalsa -dhw:DX -r44100 -p1024 -n2 &
+    # wait for JACK to be up and running
+    jack_wait -w
+    nohup pulseaudio --start
+fi
 
-# connect PulseAudio to it
+# connect PulseAudio to JACK
 pactl load-module module-jack-sink channels=2 connect=0
-pactl set-sink-volume jack_out 75%
+pactl set-sink-volume jack_out 100%
 pactl set-default-sink jack_out
 
-# start and connect the EQ
-calfjackhost --load ~/.config/jack/calf.conf &
+# start EQ and Connector if not already running
+[ -z `pidof calfjackhost` ] && calfjackhost --load ~/.config/jack/calf.conf &
 [ -z `pidof jack-plumbing` ] && jack-plumbing -o ~/.config/jack/rules &
+exit
 ```
 Don't forget to `chmod +x ~/.config/jack/startup.sh`!  
 The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI.  
