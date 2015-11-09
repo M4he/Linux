@@ -6,7 +6,7 @@ This guide makes heavy use of GUI tools - if you are an advanced user and prefer
 This is guide is a rough guideline that sums up the steps I have done for my systems. It has only been tested on Debian 8 (Jessie) so far, thus YMMV!
 If you succeed or fail using this guide, you can drop a feedback in the 'Issues' section of my GitHub repo if you want.
 
-The following section will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter 'Setup' below.
+The following section will give a short overview of the goals and approaches of this guide. If you are not interested skip to chapter [Setup](#setup) below.
 
 ## Who is this guide intended for
 This is for audiophiles and perfectionists alike.
