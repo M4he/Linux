@@ -226,6 +226,7 @@ If you use suspend and/or hibernate on your system you might run into the issue 
 I still have to investigate this issue and (hopefully) add a fix to this guide as soon as I come up with one.  
 From what I observed after suspend, the jack-sink module needs to be loaded into PulseAudio again (maybe `pactl unload-module module-suspend-on-idle` will prevent PulseAudio from dropping the module to begin with?) plus calfjackhost needs to be restarted:
 ```
+#!/bin/bash
 killall calfjackhost
 calfjackhost --load ~/.config/jack/calf.conf &
 pactl load-module module-jack-sink channels=2 connect=0
