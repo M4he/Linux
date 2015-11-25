@@ -44,7 +44,7 @@ Finally, this script is to be added to autostart:
 if [ -z `pidof jackd` ]
 then
     pulseaudio --kill
-    jackd -ndefault -dalsa -dhw:0 -r44100 -p1024 -n2 &
+    jackd -ndefault -dalsa -dhw:0 -r44100 -p1024 -n2 > ~/.config/jack/jackd.log 2>&1 &
     # wait for JACK to be up and running
     jack_wait -w
     pulseaudio --start
@@ -61,7 +61,8 @@ pactl set-default-sink jack_out
 exit
 ```
 Don't forget to `chmod +x` on the script!  
-The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI. Ḿake sure the `-dhw` flag matches your hardware.
+The `jackd` startup command is the same as in `~/.jackdrc` created by QJackCtl when  configured using the GUI. Ḿake sure the `-dhw` flag matches your hardware.  
+If you experience audio skips or glitches using JACK later, have a look at the `jackd.log` file. If there are any `XRun` messages, you can try increasing the `-p` value (has to be a power of 2, e.g. `2048`); increasing this will increase latency but reduces the risk of `XRun` occurences (especially on weak hardware).
 
 # Final remarks
 The [things mentioned in the original guide](README.md#final-remarks) still apply.
