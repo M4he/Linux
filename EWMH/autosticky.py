@@ -101,6 +101,8 @@ def iterate_windows():
                 _WINDOW_POSITIONS[win_id] = win_pos
         else:
             # new window
+            if is_window_to_be_stickied(*win_pos):
+                set_window_sticky(win, True)
             _WINDOW_POSITIONS[win_id] = win_pos
     ewmh.display.flush()
 
