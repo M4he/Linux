@@ -87,7 +87,10 @@ def iterate_windows():
     windows = ewmh.getClientList()
     for win in windows:
         win_id = win.__hash__()
-        win_pos = get_window_geometry(win)
+        try:
+            win_pos = get_window_geometry(win)
+        except:
+            continue
         if win_id in _WINDOW_POSITIONS:
             last_pos = _WINDOW_POSITIONS[win_id]
             if win_pos != last_pos:
