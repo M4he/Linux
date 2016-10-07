@@ -25,8 +25,6 @@ ewmh = EWMH()
 #
 # - only supports one external screen
 # - only supports external screen located right of the primary one
-# - might build up memory, because the window list has currently no
-#   garbage collection
 # - currently has no exclusion list for windows to prevent specific
 #   windows from getting stickied/unstickied
 
@@ -46,6 +44,7 @@ STICKY_X_THRESH = 1440
 CHECK_INTERVAL_SECONDS = .5
 
 _WINDOW_POSITIONS = {}
+_LAST_WINDOWS = {}  # keeps track of recent windows for garbage collection
 
 
 def get_window_geometry(win):
@@ -80,10 +79,17 @@ def initialize_windows():
             set_window_sticky(win)
 
         _WINDOW_POSITIONS[win_id] = win_pos
+        _LAST_WINDOWS[win_id] = True
     ewmh.display.flush()
 
 
+def reset_window_tracker():
+    for win_id in _LAST_WINDOWS:
+        _LAST_WINDOWS[win_id] = False
+
+
 def iterate_windows():
+    reset_window_tracker()
     windows = ewmh.getClientList()
     for win in windows:
         win_id = win.__hash__()
@@ -91,6 +97,7 @@ def iterate_windows():
             win_pos = get_window_geometry(win)
         except:
             continue
+        _LAST_WINDOWS[win_id] = True
         if win_id in _WINDOW_POSITIONS:
             last_pos = _WINDOW_POSITIONS[win_id]
             if win_pos != last_pos:
@@ -105,6 +112,13 @@ def iterate_windows():
                 set_window_sticky(win, True)
             _WINDOW_POSITIONS[win_id] = win_pos
     ewmh.display.flush()
+
+    # garbage collect any missing windows
+    lw_copy = dict(_LAST_WINDOWS)
+    for win_id in lw_copy:
+        if not lw_copy[win_id]:
+            _LAST_WINDOWS.pop(win_id)
+            _WINDOW_POSITIONS.pop(win_id)
 
 
 def run():
