@@ -147,9 +147,12 @@ def signal_term_handler(signal, frame):
 
 def run():
     signal.signal(signal.SIGTERM, signal_term_handler)
-    initialize_windows()
-    while True:
-        iterate_windows()
-        time.sleep(CHECK_INTERVAL_SECONDS)
+    try:
+        initialize_windows()
+        while True:
+            iterate_windows()
+            time.sleep(CHECK_INTERVAL_SECONDS)
+    except KeyboardInterrupt:
+        unsticky_all_windows()
 
 run()
