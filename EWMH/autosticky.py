@@ -32,7 +32,12 @@ ewmh = EWMH()
 #
 # Simply adjust the values below. The STICKY_X_THRESH should be the
 # horizontal resolution of your left screen. Any window that has at least
-# two thirds of its content beyond this barrier will become sticky.
+# two thirds of its content beyond this barrier will become sticky if
+# the right screen is set to be sticky for instance.
+#
+# Use LEFT_SCREEN_IS_STICKY to toggle whether the windows of the left
+# screen (= True) or those of the right screen (= False) should be
+# stickied.
 #
 # Finally run the script via python:
 #   $ python autosticky.py
@@ -40,6 +45,7 @@ ewmh = EWMH()
 
 # config values
 REPARENTING_WM = True
+LEFT_SCREEN_IS_STICKY = True
 STICKY_X_THRESH = 1440
 CHECK_INTERVAL_SECONDS = .5
 
@@ -60,8 +66,12 @@ def get_window_geometry_hash(x, y, w, h):
 
 
 def is_window_to_be_stickied(x, y, w, h):
-    ref_point = (x + round(w/3), y + round(h/3))
-    return ref_point[0] > STICKY_X_THRESH
+    if LEFT_SCREEN_IS_STICKY:
+        ref_point = (x + round(2*w/3), y + round(2*h/3))
+        return ref_point[0] < STICKY_X_THRESH
+    else:
+        ref_point = (x + round(w/3), y + round(h/3))
+        return ref_point[0] > STICKY_X_THRESH
 
 
 def set_window_sticky(win, sticky=True):
