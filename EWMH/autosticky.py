@@ -1,5 +1,7 @@
 from ewmh import EWMH
+import signal
 import time
+import sys
 ewmh = EWMH()
 
 # PYTHON MODULE REQUIREMENTS
@@ -131,7 +133,20 @@ def iterate_windows():
             _WINDOW_POSITIONS.pop(win_id)
 
 
+def unsticky_all_windows():
+    windows = ewmh.getClientList()
+    for win in windows:
+        set_window_sticky(win, sticky=False)
+    ewmh.display.flush()
+
+
+def signal_term_handler(signal, frame):
+    unsticky_all_windows()
+    sys.exit(0)
+
+
 def run():
+    signal.signal(signal.SIGTERM, signal_term_handler)
     initialize_windows()
     while True:
         iterate_windows()
