@@ -60,7 +60,7 @@ def get_window_geometry_hash(x, y, w, h):
 
 
 def is_window_to_be_stickied(x, y, w, h):
-    ref_point = (x + round(w/3), y + round(y/3))
+    ref_point = (x + round(w/3), y + round(h/3))
     return ref_point[0] > STICKY_X_THRESH
 
 
