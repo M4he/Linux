@@ -37,7 +37,7 @@ cmd=$WAIFU2X_CMD
 
 ## MODE SELECTION
 
-mode=$(zenity --width=240 --height=130 --list --title="Waifu2x Upscaler - Mode" \
+mode=$(zenity --width=240 --height=130 --list --title="Waifu2x - Mode" \
 	--text="Choose the options to apply:" --checklist \
 	--column "Use" --column "Mode" \
 	TRUE "Upscaling" \
@@ -46,7 +46,6 @@ mode=$(zenity --width=240 --height=130 --list --title="Waifu2x Upscaler - Mode" 
 
 # abort if nothing was selected or cancel was pressed
 if [ -z "$mode" ] ; then
-   zenity --error --text "Aborted!"
    exit 1
 fi
 
@@ -66,7 +65,7 @@ done
 
 if [ "$use_upscale" = "TRUE" ] ; then
 
-ups=$(zenity --width=240 --height=170 --list --title="Waifu2x Upscaler - Upscale" \
+ups=$(zenity --width=240 --height=170 --list --title="Waifu2x - Upscale" \
 	--text="Choose size scale:" --radiolist \
 	--column "Use" --column="Size Ratio" \
 	TRUE "2.0" \
@@ -74,7 +73,6 @@ ups=$(zenity --width=240 --height=170 --list --title="Waifu2x Upscaler - Upscale
 	FALSE "1.5");
 
 if [ -z "$ups" ] ; then
-   zenity --error --text "Aborted!"
    exit 1
 fi
 
@@ -90,14 +88,13 @@ fi
 
 if [ "$use_denoise" = "TRUE" ] ; then
 
-nos=$(zenity --width=240 --height=130 --list --title="Waifu2x Upscaler - Denoise" \
+nos=$(zenity --width=240 --height=130 --list --title="Waifu2x - Denoise" \
 	--text="Noise reduction:" --radiolist \
 	--column "Use" --column="Level" \
 	TRUE "1" \
 	FALSE "2");
 
 if [ -z "$nos" ] ; then
-   zenity --error --text "Aborted!"
    exit 1
 fi
 
@@ -125,4 +122,4 @@ fi
 ## EXECUTION
 
 cmd=$cmd' -i "'$infile'" -o "'$outfile'"'
-eval $cmd;
+eval $cmd | zenity --progress --title="Waifu2x - Working..." --pulsate --auto-close --auto-kill
