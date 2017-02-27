@@ -37,7 +37,7 @@ cmd=$WAIFU2X_CMD
 
 ## MODE SELECTION
 
-mode=$(zenity --width=240 --height=130 --list --title="Waifu2x - Mode" \
+mode=$(zenity --list --title="Waifu2x - Mode" \
 	--text="Choose the options to apply:" --checklist \
 	--column "Use" --column "Mode" \
 	TRUE "Upscaling" \
@@ -65,7 +65,7 @@ done
 
 if [ "$use_upscale" = "TRUE" ] ; then
 
-ups=$(zenity --width=240 --height=170 --list --title="Waifu2x - Upscale" \
+ups=$(zenity --list --title="Waifu2x - Upscale" \
 	--text="Choose size scale:" --radiolist \
 	--column "Use" --column="Size Ratio" \
 	TRUE "2.0" \
@@ -81,6 +81,11 @@ fi
 cmd=$cmd' --scale_ratio '$ups
 # filename appendix
 fname_apx=$fname_apx'_scale'$ups
+else
+
+# command line arg
+cmd=$cmd' --scale_ratio 1.0'
+
 fi
 
 
@@ -88,7 +93,7 @@ fi
 
 if [ "$use_denoise" = "TRUE" ] ; then
 
-nos=$(zenity --width=240 --height=130 --list --title="Waifu2x - Denoise" \
+nos=$(zenity --list --title="Waifu2x - Denoise" \
 	--text="Noise reduction:" --radiolist \
 	--column "Use" --column="Level" \
 	TRUE "1" \
@@ -122,4 +127,5 @@ fi
 ## EXECUTION
 
 cmd=$cmd' -i "'$infile'" -o "'$outfile'"'
+echo $cmd
 eval $cmd | zenity --progress --title="Waifu2x - Working..." --pulsate --auto-close --auto-kill
