@@ -89,6 +89,14 @@ nano ~/.Xdefaults
 	Xcursor.size: 32
 ```
 
+## Xfce: fix 'open folder' opening wrong application
+
+e.g. in Firefox download window clicking on 'open target directory' will open up some other random application that is able to handle directories.
+
+- open up `xfce4-mime-settings`
+- search for `inode/directory`
+- click the default application entry on the right and choose your file browser
+
 ## Use xwinwrap and MPV to use a video wallpaper
 
 - get `mpv`
