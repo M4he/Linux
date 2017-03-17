@@ -17,7 +17,9 @@ Almost everytime after entering suspend, the device will automatically wakeup it
 
 - **cause:** LID switch triggering regardless of its state
 
-- **solution:** create `/lib/systemd/system-sleep/lid_wakeup_disable`:
+- **solution:** scripts for disabling various hardware-based wakeups
+
+- create `/lib/systemd/system-sleep/lid_wakeup_disable`:
 ```
 #!/bin/sh
 
@@ -37,8 +39,30 @@ case $1 in
 esac
 ```
 - make it executable `chmod +x /lib/systemd/system-sleep/lid_wakeup_disable`
-
 - this script will disable wakeup on lid open completely, simply press any keyboard key to wake up the device
+
+- create `/lib/systemd/system-sleep/xhc_wakeup_disable`:
+```
+#!/bin/sh
+
+# /lib/systemd/system-sleep/xhc_wakeup_disable
+#
+# Avoids that system wakes up immediately after suspend or hibernate
+# due to XHC triggering (e.g. suspend/hibernate through KDE menu entry)
+#
+# Tested on MacBookAir7,2
+
+case $1 in
+  pre)
+    if cat /proc/acpi/wakeup | grep -qE '^XHC1.*enabled'; then
+        echo XHC1 > /proc/acpi/wakeup
+    fi
+    ;;
+esac
+```
+- make it executable `chmod +x /lib/systemd/system-sleep/xhc_wakeup_disable`
+- **WARNING**: this script disabled keypress wakeup *except* for the power button, you may only wake up the device from suspend by pressing the power button!
+- the XHC wakeups are not that common and may only happen after a prolonged uptime
 
 ### Problem #2: failed wakeup after suspend
 
