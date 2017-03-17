@@ -15,7 +15,7 @@ Below explanations concentrate on my experience using Debian 8 (Jessie) on a Mac
 
 Almost everytime after entering suspend, the device will automatically wakeup itself after a second or two.
 
-- **cause:** LID switch triggering regardless of its state
+- **cause:** LID switch triggering regardless of its state or XHCI firing wakeup signals for no reason
 
 - **solution:** scripts for disabling various hardware-based wakeups
 
@@ -62,7 +62,7 @@ esac
 ```
 - make it executable `chmod +x /lib/systemd/system-sleep/xhc_wakeup_disable`
 - **WARNING**: this script disabled keypress wakeup *except* for the power button, you may only wake up the device from suspend by pressing the power button!
-- the XHC wakeups are not that common and may only happen after a prolonged uptime
+- the XHCI wakeups are not that common and may only happen after a prolonged uptime
 
 ### Problem #2: failed wakeup after suspend
 
