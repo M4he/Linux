@@ -9,6 +9,10 @@ Below explanations concentrate on my experience using Debian 8 (Jessie) on a Mac
 - for Debian 8, the Live CDs won't boot as they don't include EFI, use the general installation discs!
 - Debian will install in such fashion that it boots GRUB per default, in order to boot OSX hold down the alt key at powerup
 
+## Kernel
+
+I recommend enabling the backports repository and installing the **4.9** kernel. This was the first thing I did after installing, so I can't comment on how well the original 3.16 kernel performs.
+
 ## Suspend-related problems
 
 ### Problem #1: instant wakeup on suspend
@@ -186,7 +190,12 @@ xrender-sync-fence = true;
 - not supported by `brcmsmac`
 - needs `broadcom-sta` driver to work
 
-### Broadcom STA
+### Fix Broadcom STA for 4.9 backports kernel
+
+- if using the 4.9 bpo kernel, the DKMS variant of `broadcom-sta` will fail to build
+- **solution:** use the `broadcom-sta-dkms` package from Debian 9 (stretch): https://packages.debian.org/stretch/all/broadcom-sta-dkms/download
+
+### Broadcom STA notes
 
 - although `broadcom-sta` is said to have better power management, it is horrible in terms of stability from my experience
 - expect a lot of connection drops and frequent WiFi password dialogs disrupting your work!
