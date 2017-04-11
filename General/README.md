@@ -115,14 +115,20 @@ xwinwrap -ov -st -sp -b -ni -fs -nf -- mpv -no-audio -quiet -vo xv -wid WID <vid
 ```
 pacmd list sources | grep "name:.*input"
 ```
+
 - add to your `/etc/pulse/default.pa`*
 ```
 load-module module-loopback source=alsa_input.pci-0000_01_02.0.analog-stereo
-```(adjust the source according to above names)
+```
+
+(adjust the source according to above names)
+
 - you can toggle mute by:
 ```
 pactl set-source-mute alsa_input.pci-0000_01_02.0.analog-stereo toggle
-```(again, name has to match)
+```
+
+(again, name has to match)
 
 (* you may also use your `~/.config/pulse/default.pa` but it has to include the necessary commands of the `/etc/pulse/default.pa`, since it will replace it)
 
