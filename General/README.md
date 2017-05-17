@@ -155,3 +155,27 @@ StartupNotify=false
 Terminal=false
 ```
 (requires your icon theme to provide a suitable `dialog-password` icon)
+
+
+## Make Jitsi look good on GTK
+
+create a `jitsi.desktop` file within `~/.local/share/applications` with the following content:
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Jitsi
+GenericName=Jitsi
+Comment=VoIP and Instant Messaging client
+Icon=jitsi
+Exec=env _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel" jitsi %u
+NoDisplay=false
+Categories=Chat;InstantMessaging;Java;Network;Telephony;VideoConference;
+Keywords=chat;messaging;im;voip;video;call;conference;
+MimeType=x-scheme-handler/sip;x-scheme-handler/xmpp;
+StartupNotify=false
+Terminal=false
+```
+(this is basically a copy of `/usr/share/applications/jitsi.desktop` with an adjusted `Exec` line, you may also change `Icon` here to your liking as well!)
+
+Fun fact: changing to the GTK LaF for Jitsi fixed a bunch of GUI crashes for me on Debian.
