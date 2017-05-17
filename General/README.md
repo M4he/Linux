@@ -89,6 +89,14 @@ nano ~/.Xdefaults
 	Xcursor.size: 32
 ```
 
+## Xfce: fix 'open folder' opening wrong application
+
+e.g. in Firefox download window clicking on 'open target directory' will open up some other random application that is able to handle directories.
+
+- open up `xfce4-mime-settings`
+- search for `inode/directory`
+- click the default application entry on the right and choose your file browser
+
 ## Use xwinwrap and MPV to use a video wallpaper
 
 - get `mpv`
@@ -107,14 +115,20 @@ xwinwrap -ov -st -sp -b -ni -fs -nf -- mpv -no-audio -quiet -vo xv -wid WID <vid
 ```
 pacmd list sources | grep "name:.*input"
 ```
+
 - add to your `/etc/pulse/default.pa`*
 ```
 load-module module-loopback source=alsa_input.pci-0000_01_02.0.analog-stereo
-```(adjust the source according to above names)
+```
+
+(adjust the source according to above names)
+
 - you can toggle mute by:
 ```
 pactl set-source-mute alsa_input.pci-0000_01_02.0.analog-stereo toggle
-```(again, name has to match)
+```
+
+(again, name has to match)
 
 (* you may also use your `~/.config/pulse/default.pa` but it has to include the necessary commands of the `/etc/pulse/default.pa`, since it will replace it)
 
