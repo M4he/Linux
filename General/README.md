@@ -145,13 +145,18 @@ pacmd list sinks | grep "name:.*output"
 ```
 - execute
 ```
-pacat -r --latency-msec=1 -d <source_name> | pacat -p --latency-msec=1 -d <sink_name>
+pacat -r --latency-msec=10 -d <source_name> | pacat -p --latency-msec=10 -d <sink_name>
 
 # e.g.
-pacat -r --latency-msec=1 -d alsa_input.pci-0000_00_1b.0.analog-stereo | pacat -p --latency-msec=1 -d alsa_output.usb-FiiO_DigiHug_USB_Audio-01-Audio.analog-stereo
+pacat -r --latency-msec=10 -d alsa_input.pci-0000_00_1b.0.analog-stereo | pacat -p --latency-msec=10 -d alsa_output.usb-FiiO_DigiHug_USB_Audio-01-Audio.analog-stereo
 ```
 (replace device names as necessary)
+
+- play around with the `--latency-msec=` value and choose the lowest possible amount your system can keep up with
+    - if chosen too low, you might experience audio signal dropouts or distortions and slow off-sync audio over time!
 - kill command with `[Ctrl]`+`[C]` to stop
+
+- in the `Scripts` directory of this repository there's a sample script for toggling loopback on/off with pacat
 
 
 ## Fix PolicyKit (polkit) blurry icon in docks (plank, DockBarX etc.)
