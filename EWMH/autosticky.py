@@ -6,7 +6,7 @@ ewmh = EWMH()
 
 # PYTHON MODULE REQUIREMENTS
 #
-# - 'ewmh'
+# - 'python-ewmh'
 # - 'python-xlib' (ewmh dependency)
 
 # PREFACE
@@ -26,34 +26,47 @@ ewmh = EWMH()
 # RESTRICTIONS
 #
 # - only supports one external screen
-# - only supports external screen located right of the primary one
-# - currently has no exclusion list for windows to prevent specific
-#   windows from getting stickied/unstickied
 
 # USAGE
 #
-# Simply adjust the values below. The STICKY_X_THRESH should be the
-# horizontal resolution of your left screen. Any window that has at least
-# two thirds of its content beyond this barrier will become sticky if
-# the right screen is set to be sticky for instance.
+# Simply adjust the values below. The POSITION_THRESHOLD should be the
+# either the horizontal or vertical resolution of your top/left screen.
+# If the bottom/right screen is your external one, set the config variable
+# BELOW_THRESHOLD_IS_STICKY to False, otherwise (your top/left screen is
+# the external one) set it to True.
+# Any window that has at least two thirds of its content beyond this barrier
+# towards the external screen will become sticky.
+# The VERTICAL_MODE flag specifies whether your screens are aligned
+# top/bottom (True) or left/right (False). The POSITION_THRESHOLD will
+# represent the X or Y coordinate of your screen edge respectively.
 #
-# Use LEFT_SCREEN_IS_STICKY to toggle whether the windows of the left
-# screen (= True) or those of the right screen (= False) should be
-# stickied.
+# The WIN_CLASS_BLACKLIST array specifies window classes that should be
+# excluded from this script's behavior. Since this script tends to remove
+# the EWMH sticky flag from windows below the barrier, it may interfere
+# with windows that actually need this flag (e.g. panels).
+# Use 'xprop' to find the WM_CLASS of those windows and insert its second
+# string attribute to the WM_CLASS_BLACKLIST array below.
 #
 # Finally run the script via python:
 #   $ python autosticky.py
 
 
 # config values
+VERTICAL_MODE = True
 REPARENTING_WM = True
-LEFT_SCREEN_IS_STICKY = True
-STICKY_X_THRESH = 1440
+BELOW_THRESHOLD_IS_STICKY = False
+POSITION_THRESHOLD = 1080
 CHECK_INTERVAL_SECONDS = .5
+WIN_CLASS_BLACKLIST = [
+    'Xfce4-panel',
+    'Plank'
+]
 
 _WINDOW_POSITIONS = {}
 _LAST_WINDOWS = {}  # keeps track of recent windows for garbage collection
 
+def is_window_class_blacklisted(win):
+    return win.get_wm_class()[1] in WIN_CLASS_BLACKLIST
 
 def get_window_geometry(win):
     if REPARENTING_WM:
@@ -68,15 +81,23 @@ def get_window_geometry_hash(x, y, w, h):
 
 
 def is_window_to_be_stickied(x, y, w, h):
-    if LEFT_SCREEN_IS_STICKY:
+    if BELOW_THRESHOLD_IS_STICKY:
         ref_point = (x + round(2*w/3), y + round(2*h/3))
-        return ref_point[0] < STICKY_X_THRESH
+        if VERTICAL_MODE:
+            return ref_point[1] < POSITION_THRESHOLD
+        else:
+            return ref_point[0] < POSITION_THRESHOLD
     else:
         ref_point = (x + round(w/3), y + round(h/3))
-        return ref_point[0] > STICKY_X_THRESH
+        if VERTICAL_MODE:
+            return ref_point[1] > POSITION_THRESHOLD
+        else:
+            return ref_point[0] > POSITION_THRESHOLD
 
 
 def set_window_sticky(win, sticky=True):
+    if is_window_class_blacklisted(win):
+        return
     action = sticky and 1 or 0
     ewmh.setWmState(win, action, '_NET_WM_STATE_STICKY')
 
