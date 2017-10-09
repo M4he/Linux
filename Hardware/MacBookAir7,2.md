@@ -1,17 +1,13 @@
 # MacBook Air 7,2 (2015) with Linux
 
-Below explanations concentrate on my experience using Debian 8 (Jessie) on a MacBook Air 7,2 (2015 model) and explain necessary tweaks.
+Below explanations concentrate on my experience using Debian 9 (Stretch) on a MacBook Air 7,2 (2015 model) and explain necessary tweaks.
 
 ## Installation
 
 - albeit rEFInd works, it will not boot non-EFI bootloaders
 - you can ditch rEFInd, grab an EFI-compatible boot disk and install regularly
-- for Debian 8, the Live CDs won't boot as they don't include EFI, use the general installation discs!
+- for Debian 9, the Live CDs might not boot as they don't include EFI, use the general installation discs!
 - Debian will install in such fashion that it boots GRUB per default, in order to boot OSX hold down the alt key at powerup
-
-## Kernel
-
-I recommend enabling the backports repository and installing the **4.9** kernel. This was the first thing I did after installing, so I can't comment on how well the original 3.16 kernel performs.
 
 ## Suspend-related problems
 
@@ -115,7 +111,6 @@ sudo systemctl start pommed
 ## Intel Graphics (HD 6000 Broadwell)
 
 - in contrast to older chips UXA is not an option anymore, it is far too slow/sluggish from my experience, this chip *needs* SNA to perform
-- requires a recent Intel driver to perform, the standard Debian 8 one doesn't cut it - you'll need the one from the backports
 
 ### xorg.conf
 
@@ -127,7 +122,6 @@ Section "Device"
    Driver      "intel"
    Option      "AccelMethod" "sna"
    Option      "DRI" "3"
-   Option      "TearFree" "true"
 EndSection
 ```
 
@@ -212,11 +206,6 @@ xrender-sync-fence = true;
 - uses a **Broadcom BCM4360 43A0** chip
 - not supported by `brcmsmac`
 - needs `broadcom-sta` driver to work
-
-### Fix Broadcom STA for 4.9 backports kernel
-
-- if using the 4.9 bpo kernel, the DKMS variant of `broadcom-sta` will fail to build
-- **solution:** use the `broadcom-sta-dkms` package from Debian 9 (stretch): https://packages.debian.org/stretch/all/broadcom-sta-dkms/download
 
 ### Broadcom STA notes
 
