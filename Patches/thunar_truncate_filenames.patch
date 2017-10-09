@@ -1,0 +1,226 @@
+diff --git a/thunar/thunar-compact-view.c b/thunar/thunar-compact-view.c
+index b679a82..a747abb 100644
+--- a/thunar/thunar-compact-view.c
++++ b/thunar/thunar-compact-view.c
+@@ -67,7 +67,10 @@ thunar_compact_view_class_init (ThunarCompactViewClass *klass)
+ static void
+ thunar_compact_view_init (ThunarCompactView *compact_view)
+ {
+- /* initialize the icon view properties */
++  gboolean truncate_filenames;
++  guint wrap_width;
++
++  /* initialize the icon view properties */
+   exo_icon_view_set_margin (EXO_ICON_VIEW (GTK_BIN (compact_view)->child), 3);
+   exo_icon_view_set_layout_mode (EXO_ICON_VIEW (GTK_BIN (compact_view)->child), EXO_ICON_VIEW_LAYOUT_COLS);
+   exo_icon_view_set_orientation (EXO_ICON_VIEW (GTK_BIN (compact_view)->child), GTK_ORIENTATION_HORIZONTAL);
+@@ -77,13 +80,22 @@ thunar_compact_view_init (ThunarCompactView *compact_view)
+                 "ypad", 2u,
+                 NULL);
+ 
++  
++  g_object_get (THUNAR_STANDARD_VIEW (compact_view)->preferences, "misc-truncate-filenames", &truncate_filenames, NULL);
++  g_object_get (THUNAR_STANDARD_VIEW (compact_view)->preferences, "compact-view-text-width", &wrap_width, NULL);
++
++  /* use default value if truncation is disabled */
++  wrap_width = (truncate_filenames) ? wrap_width : 1280;
++
+   /* setup the name renderer (wrap only very long names) */
+   g_object_set (G_OBJECT (THUNAR_STANDARD_VIEW (compact_view)->name_renderer),
+                 "wrap-mode", PANGO_WRAP_WORD_CHAR,
+-                "wrap-width", 1280,
++                "ellipsize-mode", (truncate_filenames ? PANGO_ELLIPSIZE_MIDDLE : PANGO_ELLIPSIZE_NONE),
++                "wrap-width", wrap_width,
+                 "xalign", 0.0f,
+                 "yalign", 0.5f,
+                 NULL);
++
+ }
+ 
+ 
+diff --git a/thunar/thunar-icon-view.c b/thunar/thunar-icon-view.c
+index 0ebde99..57e0068 100644
+--- a/thunar/thunar-icon-view.c
++++ b/thunar/thunar-icon-view.c
+@@ -96,14 +96,23 @@ thunar_icon_view_class_init (ThunarIconViewClass *klass)
+ static void
+ thunar_icon_view_init (ThunarIconView *icon_view)
+ {
++  gboolean truncate_filenames;
++  guint text_lines;
++
+   /* setup the icon renderer */
+   g_object_set (G_OBJECT (THUNAR_STANDARD_VIEW (icon_view)->icon_renderer),
+                 "ypad", 3u,
+                 NULL);
+ 
++  
++  g_object_get (THUNAR_STANDARD_VIEW (icon_view)->preferences, "misc-truncate-filenames", &truncate_filenames, NULL);
++  g_object_get (THUNAR_STANDARD_VIEW (icon_view)->preferences, "icon-view-text-lines", &text_lines, NULL);
++
+   /* setup the name renderer */
+   g_object_set (G_OBJECT (THUNAR_STANDARD_VIEW (icon_view)->name_renderer),
+                 "wrap-mode", PANGO_WRAP_WORD_CHAR,
++                "ellipsize-mode", (truncate_filenames ? PANGO_ELLIPSIZE_MIDDLE : PANGO_ELLIPSIZE_NONE),
++                "text-lines", text_lines,
+                 NULL);
+ 
+   /* synchronize the "text-beside-icons" property with the global preference */
+diff --git a/thunar/thunar-preferences.c b/thunar/thunar-preferences.c
+index 9a86ae1..c7d65a7 100644
+--- a/thunar/thunar-preferences.c
++++ b/thunar/thunar-preferences.c
+@@ -95,6 +95,9 @@ enum
+   PROP_SHORTCUTS_ICON_SIZE,
+   PROP_TREE_ICON_EMBLEMS,
+   PROP_TREE_ICON_SIZE,
++  PROP_ICON_VIEW_TEXT_LINES,
++  PROP_COMPACT_VIEW_TEXT_WIDTH,
++  PROP_MISC_TRUNCATE_FILENAMES,
+   N_PROPERTIES,
+ };
+ 
+@@ -759,6 +762,46 @@ thunar_preferences_class_init (ThunarPreferencesClass *klass)
+                          THUNAR_ICON_SIZE_SMALLEST,
+                          EXO_PARAM_READWRITE);
+ 
++  /**
++   * ThunarPreferences:icon-view-text-lines:
++   *
++   * Maximum number of text lines displayed for icon
++   * labels in icon view. Only applicable if filename
++   * truncation is enabled.
++   **/
++  preferences_props[PROP_ICON_VIEW_TEXT_LINES] =
++      g_param_spec_uint ("icon-view-text-lines",
++                         "IconViewTextLines",
++                         NULL,
++                         1u, G_MAXUINT, 4u,
++                         EXO_PARAM_READWRITE);
++
++  /**
++   * ThunarPreferences:compact-view-text-width:
++   *
++   * Maximum width of item labels in compact view.
++   * Only applicable if filename truncation is enabled.
++   **/
++  preferences_props[PROP_COMPACT_VIEW_TEXT_WIDTH] =
++      g_param_spec_uint ("compact-view-text-width",
++                         "CompactViewTextWidth",
++                         NULL,
++                         100u, G_MAXUINT, 300u,
++                         EXO_PARAM_READWRITE);
++
++  /**
++   * ThunarPreferences:misc-truncate-filenames:
++   *
++   * Whether to truncate (ellipsize) filenames
++   * in icon and compact view.
++   **/
++  preferences_props[PROP_MISC_TRUNCATE_FILENAMES] =
++      g_param_spec_boolean ("misc-truncate-filenames",
++                            "MiscTruncateFilenames",
++                            NULL,
++                            TRUE,
++                            EXO_PARAM_READWRITE);
++
+   /* install all properties */
+   g_object_class_install_properties (gobject_class, N_PROPERTIES, preferences_props);
+ }
+diff --git a/thunar/thunar-text-renderer.c b/thunar/thunar-text-renderer.c
+index b792872..01cac2e 100644
+--- a/thunar/thunar-text-renderer.c
++++ b/thunar/thunar-text-renderer.c
+@@ -47,6 +47,8 @@ enum
+   PROP_TEXT,
+   PROP_WRAP_MODE,
+   PROP_WRAP_WIDTH,
++  PROP_ELLIPSIZE_MODE,
++  PROP_LINES,
+   N_PROPERTIES
+ };
+ 
+@@ -130,6 +132,8 @@ struct _ThunarTextRenderer
+   gint            char_height;
+   PangoWrapMode   wrap_mode;
+   gint            wrap_width;
++  PangoEllipsizeMode  ellipsize_mode;
++  gint            fixed_text_lines;
+   guint           follow_state : 1;
+   gint            focus_width;;
+   PangoAlignment  alignment;
+@@ -252,6 +256,35 @@ thunar_text_renderer_class_init (ThunarTextRendererClass *klass)
+                         -1, G_MAXINT, -1,
+                         EXO_PARAM_READWRITE);
+ 
++  /**
++  * ThunarTextRenderer:ellipsize-mode:
++  *
++  * Specifies whether to break the string into multiple lines or
++  * to shorten the line, if the cell renderer does not have enough room
++  * to display the entire string. This property has
++  * no effect unless the wrap-width property is set.
++  **/
++  text_renderer_props[PROP_ELLIPSIZE_MODE] =
++      g_param_spec_enum ("ellipsize-mode",
++                         "ellipsize-mode",
++                         "ellipsize-mode",
++                         PANGO_TYPE_ELLIPSIZE_MODE,
++                         PANGO_ELLIPSIZE_NONE,
++                         EXO_PARAM_READWRITE);
++
++  /**
++  * ThunarTextRenderer:text-lines:
++  *
++  * Specifies then amount of lines that are allowed in total.
++  * If the text would exceed this amount, it will get ellipsized.
++  **/
++  text_renderer_props[PROP_LINES] =
++      g_param_spec_uint ("text-lines",
++                         "text-lines",
++                         "text-lines",
++                         0, G_MAXUINT, 1,
++                         EXO_PARAM_READWRITE);
++
+   /* install properties */
+   g_object_class_install_properties (gobject_class, N_PROPERTIES, text_renderer_props);
+ 
+@@ -336,6 +369,14 @@ thunar_text_renderer_get_property (GObject    *object,
+       g_value_set_int (value, text_renderer->wrap_width);
+       break;
+ 
++    case PROP_LINES:
++      g_value_set_uint (value, text_renderer->fixed_text_lines);
++      break;
++
++    case PROP_ELLIPSIZE_MODE:
++      g_value_set_enum (value, text_renderer->ellipsize_mode);
++      break;  
++
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+@@ -389,6 +430,14 @@ thunar_text_renderer_set_property (GObject      *object,
+         gtk_cell_renderer_set_fixed_size (GTK_CELL_RENDERER (text_renderer), -1, -1);
+       break;
+ 
++    case PROP_ELLIPSIZE_MODE:
++      text_renderer->ellipsize_mode = g_value_get_enum (value);
++      break;
++
++    case PROP_LINES:
++      text_renderer->fixed_text_lines = g_value_get_uint (value);
++      break;
++
+     default:
+       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+       break;
+@@ -432,6 +481,8 @@ thunar_text_renderer_get_size (GtkCellRenderer *renderer,
+       /* calculate the real text dimension */
+       pango_layout_set_width (text_renderer->layout, text_renderer->wrap_width * PANGO_SCALE);
+       pango_layout_set_wrap (text_renderer->layout, text_renderer->wrap_mode);
++      pango_layout_set_ellipsize (text_renderer->layout, text_renderer->ellipsize_mode);
++      pango_layout_set_height (text_renderer->layout, -text_renderer->fixed_text_lines);
+       pango_layout_set_text (text_renderer->layout, text_renderer->text, -1);
+       pango_layout_get_pixel_size (text_renderer->layout, &text_width, &text_height);
+     }
