@@ -89,6 +89,29 @@ sudo reboot
 - use a suitable script to control brightness via `/sys/class/backlight/mba6x_backlight/brightness` value
     - for example see `Display/mba6x_backlight_control` of this repository
 
+### Hint: keyboard & display backlight handling through `pommed-light`
+
+`pommed-light` is a system service that handles the MacBook's display and keyboard brightness keys and is completely desktop environment agnostic. It depends on the `mba6x_bl` module for this model.
+
+In the end, I got rid of Xfce's power manager entirely - which was messing with my brightness keys although I told it not to. I solely rely on a slightly tweaked [TLP](http://linrunner.de/en/tlp/tlp.html) setup and `pommed` now and achieve excellent battery life.
+
+```
+git clone https://github.com/bytbox/pommed-light
+cd pommed-light
+make
+sudo cp pommed/pommed /usr/sbin/pommed
+sudo chown root:root /usr/sbin/pommed
+sudo cp pommed.service /lib/systemd/system/
+sudo chown root:root /lib/systemd/system/pommed.service
+sudo systemctl enable pommed
+sudo systemctl start pommed
+```
+
+- if you plan on using `pommed`, I recommend you to remove any software that might interfere with backlight control or the corresponding buttons!
+- **warning:** as with the `mba6x_bl` module, manual install of this kernel module might need recompilation and reinstallation after every kernel update!
+  - it is important to respect the correct order when recompiling both after kernel updates
+  - use `sudo systemctl stop pommed` before attempting to re-insert a newly compiled module!
+
 ## Intel Graphics (HD 6000 Broadwell)
 
 - in contrast to older chips UXA is not an option anymore, it is far too slow/sluggish from my experience, this chip *needs* SNA to perform
@@ -199,7 +222,7 @@ xrender-sync-fence = true;
 
 - although `broadcom-sta` is said to have better power management, it is horrible in terms of stability from my experience
 - expect a lot of connection drops and frequent WiFi password dialogs disrupting your work!
-- `broadcom-sta` has always been sh*tty on previous MBAs in the same fashion but at least `brcmsmac` was available as an alternative for their chips which isn't the case with this model
+- `broadcom-sta` has always been sh\*tty on previous MBAs in the same fashion but at least `brcmsmac` was available as an alternative for their chips which isn't the case with this model
 
 ## Kernel parameters
 
