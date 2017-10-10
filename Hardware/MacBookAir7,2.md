@@ -70,6 +70,8 @@ Sometimes the wakeup after suspend fails. The screen simply stays black, no reac
 
 - **cause:** default backlight driver
 
+**UPDATE:** From my experience, using GDM and/or Gnome 3 will actually still cause this issue regardless of applying the solution below. Using LightDM (or other DMs like LXDM) and Xfce made this go away for good. (I still use the below drivers additionally)
+
 - **solution:** install mba6x_bl kernel module
 ```
 git clone git://github.com/patjak/mba6x_bl
@@ -89,7 +91,7 @@ sudo reboot
 
 `pommed-light` is a system service that handles the MacBook's display and keyboard brightness keys and is completely desktop environment agnostic. It depends on the `mba6x_bl` module for this model.
 
-In the end, I got rid of Xfce's power manager entirely - which was messing with my brightness keys although I told it not to. I solely rely on a slightly tweaked [TLP](http://linrunner.de/en/tlp/tlp.html) setup and `pommed` now and achieve excellent battery life.
+In the end, I got rid of Xfce's power manager entirely - which was messing with my brightness keys although I told it not to. Also I didn't need the custom brightness script anymore. I solely rely on a slightly tweaked [TLP](http://linrunner.de/en/tlp/tlp.html) setup and `pommed` now and achieve excellent battery life.
 
 ```
 git clone https://github.com/bytbox/pommed-light
