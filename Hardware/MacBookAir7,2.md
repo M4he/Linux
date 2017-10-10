@@ -83,7 +83,7 @@ sudo reboot
     - it is better to create a dkms package out of it, see its GitHub page for details
 
 - use a suitable script to control brightness via `/sys/class/backlight/mba6x_backlight/brightness` value
-    - for example see `Display/mba6x_backlight_control` of this repository
+    - for example see `Scripts/mba6x_backlight_control` of this repository
 
 ### Hint: keyboard & display backlight handling through `pommed-light`
 
