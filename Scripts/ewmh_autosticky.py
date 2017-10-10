@@ -48,7 +48,7 @@ ewmh = EWMH()
 # string attribute to the WM_CLASS_BLACKLIST array below.
 #
 # Finally run the script via python:
-#   $ python autosticky.py
+#   $ python ewmh_autosticky.py
 
 
 # config values
