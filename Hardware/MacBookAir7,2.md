@@ -64,6 +64,18 @@ esac
 - **WARNING**: this script disabled keypress wakeup *except* for the power button, you may only wake up the device from suspend by pressing the power button!
 - the XHCI wakeups are not that common and may only happen after a prolonged uptime
 
+- it might also help to increase the reliability by disabling LID switch and power key handling of SystemD
+- add the following to your `/etc/systemd/logind.conf`:
+```
+HandlePowerKey=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+```
+- you will need to use a suitable menu or GUI for triggering the suspend after this adjustment (such as Oblogout), or simply call `systemctl suspend` on the CLI
+  - closing the LID of your device will not trigger suspend automatically anymore
+
 ### Problem #2: failed wakeup after suspend
 
 Sometimes the wakeup after suspend fails. The screen simply stays black, no reaction to key presses and needs to be hard reset via holding down the power button.
